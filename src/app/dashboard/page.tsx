@@ -1,8 +1,13 @@
+'use client';
+import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const Dashboard = () => {
+    const router = useRouter();
   return (
-    <div>Dashboard</div>
+    <div>
+        <button onClick={() => router.push('/login')}>Hello</button>
+    </div>
   )
 }
 

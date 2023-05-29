@@ -1,13 +1,25 @@
 import React from 'react'
-type btnprops = {
-    name:string;
-}
-const Button = (props:btnprops) => {
-    const{name} = props
+
+type ButtonProps = React.DetailedHTMLProps<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  HTMLButtonElement
+>;
+
+export default function Button({
+  className = '',
+  name,
+  disabled,
+  type,
+  ...additionalProps
+}: ButtonProps) {
   return (
-        <button type='submit' className='w-full bg-info py-[10px] text-white rounded-2xl cursor-pointer'>{name}</button>
-
-  )
+    <button
+      className='w-1/2 bg-info py-[10px] text-white rounded-2xl cursor-pointer'
+      disabled={disabled}
+      type={type ?? 'button'}
+      {...additionalProps}
+    >
+      {name}
+    </button>
+  );
 }
-
-export default Button

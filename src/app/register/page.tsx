@@ -51,14 +51,24 @@ const Register = () => {
   });
 
   const {
+    reset,
+    control,
+    setError,
     register,
+    setValue,
+    formState: {
+      errors, isValid
+    },
+    getValues,
     handleSubmit,
   } = useForm({
     resolver: zodResolver(schema),
   });
-
   const submitHandler = (data: any) => {
     console.log(data);
+    if (errors) {
+      console.log(errors)
+    }
   };
 
   return (
@@ -77,7 +87,7 @@ const Register = () => {
               const { name, label, placeholder, type, icon } = inpfiels;
               return (
                 <InputGroup
-                key={index}
+                  key={index}
                   label={label}
                   placeholder={placeholder}
                   type={type}
@@ -103,7 +113,7 @@ const Register = () => {
                 </span>
               </label>
             </div>
-            <Button name="Register" />
+            <Button name="Register" type="submit" onSubmit={handleSubmit(submitHandler)} />
             <Seperator />
             <div className="flex justify-center items-center mt-2 ">
               <span className=" text-sm text-white">

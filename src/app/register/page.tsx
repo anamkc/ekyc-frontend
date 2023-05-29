@@ -1,11 +1,15 @@
+'use client';
 import Shapes from "@/components/common/Shapes";
 import type { InputGroupProps } from "../login/page";
 import { AiTwotoneLock, AiTwotoneMail } from "react-icons/ai";
-import {FaUserCircle} from "react-icons/fa"
+import { FaUserCircle } from "react-icons/fa";
 import InputGroup from "@/components/common/InputGroup";
 import Button from "@/components/common/Button";
 import Seperator from "@/components/common/Seperator";
 import Link from "next/link";
+import { useForm } from "react-hook-form";
+import { ZodType, z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const registerinputs: InputGroupProps[] = [
   {
@@ -39,27 +43,46 @@ const registerinputs: InputGroupProps[] = [
 ];
 
 const Register = () => {
+  const schema: ZodType = z.object({
+    firstName: z.string().min(1).max(30),
+    lastName: z.string().min(1).max(30),
+    email: z.string().email(),
+    password: z.string().min(8).max(30),
+  });
+
+  const {
+    register,
+    handleSubmit,
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  const submitHandler = (data: any) => {
+    console.log(data);
+  };
+
   return (
     <div>
       <div className="bg-black h-screen relative overflow-hidden">
         <Shapes />
         <div className="flex justify-center items-center flex-col h-full px-4 ">
           <form
-            action=""
+            onSubmit={handleSubmit(submitHandler)}
             className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4"
           >
             <h1 className="  text-white font-normal font-itim text-center text-4xl tracking-normal leading-tight">
               Register
             </h1>
-            {registerinputs.map((inpfiels: InputGroupProps) => {
+            {registerinputs.map((inpfiels: InputGroupProps, index) => {
               const { name, label, placeholder, type, icon } = inpfiels;
               return (
                 <InputGroup
-                  name={name}
+                key={index}
                   label={label}
                   placeholder={placeholder}
                   type={type}
                   icon={icon}
+                  {...register(name)}
                 />
               );
             })}

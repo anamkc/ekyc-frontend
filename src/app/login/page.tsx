@@ -1,3 +1,4 @@
+"use client";
 import { NextPage } from "next";
 import React from "react";
 import { AiTwotoneMail, AiTwotoneLock } from "react-icons/ai";
@@ -6,6 +7,11 @@ import Button from "@/components/common/Button";
 import Seperator from "@/components/common/Seperator";
 import Link from "next/link";
 import Shapes from "@/components/common/Shapes";
+import { useForm } from "react-hook-form";
+import { ZodType, z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { login } from "@/services/login.service";
+import { useRouter } from "next/router";
 
 export type InputGroupProps = {
   name: string;
@@ -32,25 +38,67 @@ const inputs: InputGroupProps[] = [
   },
 ];
 
+export type LoginProps = {
+  email: string;
+  password: string;
+};
+
 const Login: NextPage = () => {
+  const schema: ZodType = z.object({
+    email: z.string().email(),
+    password: z.string().min(8).max(30),
+  });
+
+  const {
+    reset,
+    control,
+    setError,
+    register,
+    setValue,
+    formState: { errors, isValid },
+    getValues,
+    handleSubmit,
+  } = useForm({
+    resolver: zodResolver(schema),
+  });
+
+  const submitHandler = (data: any) => {
+    login(data)
+      .then((res: any) => {
+        const { token, message } = res;
+        if (token) {
+          localStorage.setItem("token", token);
+          console.log(token);
+        }
+      })
+      .catch((err: any) => console.log(err));
+    if (errors) {
+      console.log(errors);
+    }
+  };
+
   return (
     <div>
       <div className="bg-black h-screen relative overflow-hidden">
-        <Shapes/>
+        <Shapes />
         <div className="flex justify-center items-center flex-col h-full px-4 ">
-          <form action="" className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4">
+          <form
+            onSubmit={handleSubmit(submitHandler)}
+            className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4"
+          >
             <h1 className="  text-white font-normal font-itim text-center text-4xl tracking-normal leading-tight">
               Login
             </h1>
-            {inputs.map((inp) => {
+            {inputs.map((inp, index) => {
               const { name, label, type, placeholder, icon } = inp;
               return (
                 <InputGroup
-                  name={name}
+                  key={index}
                   label={label}
-                  type={type}
                   placeholder={placeholder}
+                  type={type}
                   icon={icon}
+                  {...register(name)}
                 />
               );
             })}
@@ -60,7 +108,11 @@ const Login: NextPage = () => {
               Forgot password ?
             </span>
 
-            <Button name="Login" />
+            <Button
+              name="Register"
+              type="submit"
+              onSubmit={handleSubmit(submitHandler)}
+            />
             <Seperator />
             <div className="flex justify-center items-center mt-2 ">
               <span className=" text-sm text-white">

@@ -1,4 +1,4 @@
-'use client';
+'use client'
 import React, { useState, forwardRef } from "react";
 
 type InputGroupProps = {

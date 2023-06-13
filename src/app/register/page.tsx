@@ -10,17 +10,25 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signup } from "@/services/register.service";
 
+
+export type RegisterProps = {
+  firstname: string,
+  lastname: string,
+  email:string,
+  password:string
+}
 const registerinputs: InputGroupProps[] = [
   {
-    name: "firstName",
+    name: "firstname",
     type: "text",
     label: "First Name",
     placeholder: "First Name",
     icon: <FaUserCircle />,
   },
   {
-    name: "lastName",
+    name: "lastname",
     type: "text",
     label: "Last Name",
     placeholder: "Last Name",
@@ -44,8 +52,8 @@ const registerinputs: InputGroupProps[] = [
 
 const Register = () => {
   const schema: ZodType = z.object({
-    firstName: z.string().min(1).max(30),
-    lastName: z.string().min(1).max(30),
+    firstname: z.string().min(1).max(30),
+    lastname: z.string().min(1).max(30),
     email: z.string().email(),
     password: z.string().min(8).max(30),
   });
@@ -65,7 +73,7 @@ const Register = () => {
     resolver: zodResolver(schema),
   });
   const submitHandler = (data: any) => {
-    console.log(data);
+    signup(data).then((res: any)=>console.log(res)).catch((err: any)=>console.log(err))
     if (errors) {
       console.log(errors)
     }
@@ -104,7 +112,7 @@ const Register = () => {
               />
               <label htmlFor="checkbox" className="ml-2 text-sm text-white ">
                 By Continuing you accept to agree to our
-                <span className=" cursor-pointer text-sm underline text-info mx-2">
+                < span className=" cursor-pointer text-sm underline text-info mx-2">
                   Terms and Conditions
                 </span>
                 and

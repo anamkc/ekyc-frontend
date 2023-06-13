@@ -14,7 +14,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <button
-      className='w-1/2 bg-info py-[10px] text-white rounded-2xl cursor-pointer'
+      className='w-full bg-info py-[10px] text-white rounded-2xl cursor-pointer'
       disabled={disabled}
       type={type ?? 'button'}
       {...additionalProps}

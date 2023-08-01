@@ -1,6 +1,5 @@
 'use client'
 import React, { useState, forwardRef } from "react";
-import Label from "./Label";
 
 type InputGroupProps = {
   label: string;
@@ -12,18 +11,22 @@ type InputGroupProps = {
 
 const InputGroup = forwardRef<HTMLInputElement, InputGroupProps>(
   function InputGroup(props, ref) {
-    const { label, icon, ...additionalProp } = props;
     const [isFocused, setIsFocused] = useState(false);
     const handleFocus = () => {
       setIsFocused(true);
     };
-
     const handleBlur = () => {
       setIsFocused(false);
     };
+    const { label, icon, ...additionalProp } = props;
+    
     return (
       <div className="my-2">
-        <Label label={label} isFocused={isFocused} />
+        <label
+          className={`capitalize block text-base ${isFocused ? "text-white " : "text-light"}`}
+        >
+          {label}
+        </label>
         <div className="w-full relative">
           <input
             onFocus={handleFocus}
@@ -33,8 +36,7 @@ const InputGroup = forwardRef<HTMLInputElement, InputGroupProps>(
             ref={ref}
           />
           <span
-            className={`text-2xl top-[14px] absolute left-2 border-r-2 pr-2 ${isFocused ? "text-white border-white" : "text-light border-light"
-              }`}
+            className={`text-2xl top-[14px] absolute left-2 border-r-2 pr-2 ${isFocused ? "text-white " : "text-light"}`}
           >
             {icon}
           </span>

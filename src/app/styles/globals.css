@@ -10,3 +10,40 @@
     box-sizing: border-box;
     font-family: 'Itim', cursive;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: #ffffff;
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #23232329;
+}
+
+:root{
+    --primary-blue: #00d8ff;
+    --primary-purple: #6a00ff;
+  }
+  
+
+  html {
+    @apply scroll-smooth
+  }
+  body{
+    @apply bg-gray-900
+  }
+  
+  
+  @layer base {
+    h1 {
+      @apply text-3xl font-bold 
+    }
+  
+    li {
+      @apply px-4 cursor-pointer hover:scale-110 
+    }
+  
+   
+   
+  }

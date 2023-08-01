@@ -109,7 +109,7 @@ const Login: NextPage = () => {
             </span>
 
             <Button
-              name="Register"
+              name="Sign in"
               type="submit"
               onSubmit={handleSubmit(submitHandler)}
             />

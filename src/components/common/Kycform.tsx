@@ -3,11 +3,25 @@ import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-type KycformProps = {
+import { addKyc } from "@/services/addkyc.service";
+export type KycformProps = {
   name: string;
   type: "text" | "email" | "number" | "date" | "file";
   placeholder: string;
   label: string;
+};
+
+export type kycDetailProps = {
+firstname:string;
+lastname:string;
+email:string;
+phonenumber: number ;
+dob : Date;
+address1: string;  
+citizenshipImage:any;
+profilepic:any;
+
+
 };
 
 const kycinputs: KycformProps[] = [
@@ -69,7 +83,15 @@ const Kycform = () => {
   } = useForm();
 
   const onSubmit = (data: any) => {
-    console.log(data);
+  
+    addKyc(data)
+    .then((data:any)=>{
+      console.log(data)
+      if(data.message === "success"){
+        console.log("Vayo")
+      }
+    })
+    .catch((err: any) => console.log(err));
   };
   return (
     <div className="w-full md:mx-4 m-auto flex flex-col  items-center md:relative px-7  ">
@@ -80,7 +102,13 @@ const Kycform = () => {
         <div className="lg:fixed lg:flex lg:left-3 lg:top-[230px] md:hidden    ">
           <div className="w-[250px] h-[250px] hidden lg:flex rounded-full bg-gray-500 absolute left-[-70px] top-[-60px] opacity-50 z-10"></div>
 
-          <Image src="/kycimages.jpg" width={600} height={300} alt="" className=" z-30 relative lg:w-[85%] xl:w-[600px]" />
+          <Image
+            src="/kycimages.jpg"
+            width={600}
+            height={300}
+            alt=""
+            className=" z-30 relative lg:w-[85%] xl:w-[600px]"
+          />
         </div>
         <form
           onSubmit={handleSubmit(onSubmit)}

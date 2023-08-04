@@ -116,7 +116,7 @@ const Login: NextPage = () => {
             <Seperator />
             <div className="flex justify-center items-center mt-2 ">
               <span className=" text-sm text-white">
-                Don't have an account?{" "}
+                Don&apos;t have an account?{" "}
                 <Link href="/register">
                   <span className="text-sm text-info">sign up</span>
                 </Link>

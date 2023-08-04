@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
+import Button from "./Button";
 type KycformProps = {
   name: string;
   type: "text" | "email" | "number" | "date" | "file";
@@ -44,7 +45,7 @@ const kycinputs: KycformProps[] = [
   {
     name: "address",
     type: "text",
-    label: "address",
+    label: "Address",
     placeholder: "address",
   },
   {
@@ -71,20 +72,21 @@ const Kycform = () => {
   const onSubmit = (data: any) => {
     console.log(data);
   };
+  
   return (
-    <div className="w-full md:mx-4 m-auto flex flex-col  items-center md:relative px-7  ">
-      <div className=" text-center text-2xl text-[#00d8ff] mb-3 md:fixed top-[95px] left-[20rem]">
+    <div className="w-full md:mx-4 m-auto flex flex-col  items-center justify-center md:relative px-7  ">
+      <div className=" text-center text-2xl text-[#00d8ff] mb-3 mt-10 md:fixed top-[95px]">
         Fill The Kyc Form
       </div>
-      <div className="w-full flex flex-col  items-center md:flex-row md:justify-center  lg:justify-end lg:gap-5">
-        <div className="lg:fixed lg:flex lg:left-3 lg:top-[230px] md:hidden    ">
+      <div className="w-full flex items-center justify-center ">
+        {/* <div className="lg:fixed lg:flex lg:left-3 lg:top-[230px] md:hidden    ">
           <div className="w-[250px] h-[250px] hidden lg:flex rounded-full bg-gray-500 absolute left-[-70px] top-[-60px] opacity-50 z-10"></div>
 
           <Image src="/kycimages.jpg" width={600} height={300} alt="" className=" z-30 relative lg:w-[85%] xl:w-[600px]" />
-        </div>
+        </div> */}
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-xl md: mr-8 mb-8 lg:w-[50%]  "
+          className="w-full max-w-xl md:mr-8 mb-8 "
         >
           {kycinputs.map((inputs: KycformProps, index) => {
             const { name, label, placeholder, type } = inputs;
@@ -108,12 +110,11 @@ const Kycform = () => {
           })}
 
           <div className="flex items-center justify-center">
-            <button
+          <Button
+              name="Sign in"
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Submit
-            </button>
+              onSubmit={onSubmit}
+            />
           </div>
         </form>
       </div>

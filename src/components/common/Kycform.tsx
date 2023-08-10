@@ -4,6 +4,7 @@ import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { addKyc } from "@/services/addkyc.service";
+import Button from "./Button";
 export type KycformProps = {
   name: string;
   type: "text" | "email" | "number" | "date" | "file";
@@ -100,7 +101,7 @@ const Kycform = () => {
         Fill The Kyc Form
       </div>
       <div className="w-full flex items-center justify-center ">
-        {/* <div className="lg:fixed lg:flex lg:left-3 lg:top-[230px] md:hidden    ">
+        <div className="lg:fixed lg:flex lg:left-3 lg:top-[230px] md:hidden    ">
           <div className="w-[250px] h-[250px] hidden lg:flex rounded-full bg-gray-500 absolute left-[-70px] top-[-60px] opacity-50 z-10"></div>
 
           <Image

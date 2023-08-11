@@ -1,9 +1,12 @@
 import { httpClient } from "@/config/httpClient";
 import type { LoginProps } from "@/app/login/page";
 
-export const login = (props: LoginProps) => {
-  return httpClient
-    .post("/login", props)
-    .then((res) => res.data)
-    .catch((err) => console.log(err));
+export const login = async (props: LoginProps) => {
+  console.log(props);
+  try {
+    const res = await httpClient.post("/login", props);
+    return res.data;
+  } catch (err) {
+    return console.log(err);
+  }
 };

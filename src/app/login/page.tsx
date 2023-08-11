@@ -11,7 +11,7 @@ import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "@/services/login.service";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 export type InputGroupProps = {
   name: string;
@@ -21,7 +21,7 @@ export type InputGroupProps = {
   label: string;
 };
 
-const inputs: InputGroupProps[] = [
+export const inputs: InputGroupProps[] = [
   {
     name: "email",
     label: "Email",
@@ -49,6 +49,8 @@ const Login: NextPage = () => {
     password: z.string().min(8).max(30),
   });
 
+  const router = useRouter();
+
   const {
     reset,
     control,
@@ -65,10 +67,12 @@ const Login: NextPage = () => {
   const submitHandler = (data: any) => {
     login(data)
       .then((res: any) => {
+        console.log(res);
         const { token, message } = res;
         if (token) {
           localStorage.setItem("token", token);
           console.log(token);
+          router.push("/dashboard");
         }
       })
       .catch((err: any) => console.log(err));

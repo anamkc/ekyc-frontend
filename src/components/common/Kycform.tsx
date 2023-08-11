@@ -107,7 +107,7 @@ const Kycform = () => {
             width={600}
             height={300}
             alt=""
-            className=" z-30 relative lg:w-[85%] xl:w-[600px]"
+            className=" z-30 relative md:w-[65%] lg:w-[65%] xl:w-[600px] "
           />
         </div>
         <form

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Button from "../common/Button";
 import Link from "next/link";
 import Kycform from "../common/Kycform";
+import authenticatedRoute from "@/hooks/authenticatedRoute";
 
 const Add = () => {
   const [showKycForm, setShowKycForm] = useState(false);

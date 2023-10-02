@@ -10,7 +10,6 @@ const Dashboard = () => {
   const router = useRouter();
   return (
     <div className="mt-[160px]">
-      <Navbar/>
       <Add/>
     </div>
   );

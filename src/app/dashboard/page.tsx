@@ -1,8 +1,7 @@
 "use client";
-import { Navbar } from "@/components/common/Navbar";
-
-import Add from "@/components/dashboard/Add";
-import authenticatedRoute from "@/hooks/authenticatedRoute";
+import { Navbar } from "../../components/common/Navbar";
+import Add from "../../components/dashboard/Add";
+import authenticatedRoute from "../../hooks/authenticatedRoute";
 import { useRouter } from "next/navigation";
 import React from "react";
 

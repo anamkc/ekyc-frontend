@@ -13,16 +13,14 @@ export type KycformProps = {
 };
 
 export type kycDetailProps = {
-firstname:string;
-lastname:string;
-email:string;
-phonenumber: number ;
-dob : Date;
-address1: string;  
-citizenshipImage:any;
-profilepic:any;
-
-
+  firstname: string;
+  lastname: string;
+  email: string;
+  phonenumber: number;
+  dob: Date;
+  address1: string;
+  citizenshipImage: any;
+  profilepic: any;
 };
 
 const kycinputs: KycformProps[] = [
@@ -84,34 +82,22 @@ const Kycform = () => {
   } = useForm();
 
   const onSubmit = (data: any) => {
-  
     addKyc(data)
-    .then((data:any)=>{
-      console.log(data)
-      if(data.message === "success"){
-        console.log("Vayo")
-      }
-    })
-    .catch((err: any) => console.log(err));
+      .then((data: any) => {
+        console.log(data);
+        if (data.message === "success") {
+          console.log("Vayo");
+        }
+      })
+      .catch((err: any) => console.log(err));
   };
-  
+
   return (
     <div className="w-full md:mx-4 m-auto flex flex-col  items-center justify-center md:relative px-7  ">
       <div className=" text-center text-2xl text-[#00d8ff] mb-3 mt-10 md:fixed top-[95px]">
         Fill The Kyc Form
       </div>
       <div className="w-full flex items-center justify-center ">
-        <div className="lg:fixed lg:flex lg:left-3 lg:top-[230px] md:hidden    ">
-          <div className="w-[250px] h-[250px] hidden lg:flex rounded-full bg-gray-500 absolute left-[-70px] top-[-60px] opacity-50 z-10"></div>
-
-          <Image
-            src="/kycimages.jpg"
-            width={600}
-            height={300}
-            alt=""
-            className=" z-30 relative md:w-[65%] lg:w-[65%] xl:w-[600px] "
-          />
-        </div>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="w-full max-w-xl md:mr-8 mb-8 "
@@ -138,11 +124,7 @@ const Kycform = () => {
           })}
 
           <div className="flex items-center justify-center">
-          <Button
-              name="Sign in"
-              type="submit"
-              onSubmit={onSubmit}
-            />
+            <Button name="Sign in" type="submit" onSubmit={onSubmit} />
           </div>
         </form>
       </div>

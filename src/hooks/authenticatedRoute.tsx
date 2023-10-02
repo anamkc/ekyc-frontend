@@ -1,24 +1,43 @@
 "use client";
-import React, { useEffect, useState } from 'react';
-import Router, { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { httpClient } from "../config/httpClient";
 
-const authenticatedRoute = (WrappedComponent: React.ComponentType) => {
-  const WithAuth = (props: any) => {
-    const [loading, setLoading] = useState(true);
+export default function authenticatedRoute(Component: any = null) {
+  function Auth() {
+    const [access, setAccess] = useState<any>({
+      grantAccess: false,
+      token: null,
+    });
+
     const router = useRouter();
+
     useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        router.push('/login');
-      } else {
-        setLoading(false);
+      try {
+        let token: any = localStorage.getItem("token");
+
+        if (token) {
+          httpClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+          setAccess({
+            grantAccess: true,
+            token,
+          });
+        } else {
+          router.push("/login");
+        }
+      } catch (err) {
+        console.log(err);
       }
-    }, []);
+    }, [router]);
 
-    return !loading && (<WrappedComponent {...props} />)
-  };
+    if (!access.grantAccess) return <div>Loading...</div>;
 
-  return WithAuth;
-};
+    return (
+      <>
+        <Component />
+      </>
+    );
+  }
 
-export default authenticatedRoute;
+  return Auth;
+}

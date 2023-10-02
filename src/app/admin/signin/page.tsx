@@ -2,15 +2,15 @@
 import React from 'react'
 import { NextPage } from "next";
 import { AiTwotoneMail, AiTwotoneLock } from "react-icons/ai";
-import InputGroup from "@/components/common/InputGroup";
-import Button from "@/components/common/Button";
-import Seperator from "@/components/common/Seperator";
+import InputGroup from "../../../components/common/InputGroup";
+import Button from "../../../components/common/Button";
+import Seperator from "../../../components/common/Seperator";
 import Link from "next/link";
-import Shapes from "@/components/common/Shapes";
+import Shapes from "../../../components/common/Shapes";
 import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { login } from "@/services/login.service";
+import { login } from "../../../services/login.service";
 import { useRouter } from "next/navigation";
 
 export type InputGroupProps = {
@@ -100,7 +100,7 @@ export const AdminSignin = () => {
           <Seperator />
           <div className="flex justify-center items-center mt-2 ">
             <span className=" text-sm text-white">
-              Don't have an account?{" "}
+              Don&apos;t have an account?{" "}
               <Link href="/register">
                 <span className="text-sm text-info">sign up</span>
               </Link>

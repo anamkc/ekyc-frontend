@@ -14,7 +14,7 @@ const Add = () => {
     <div className="  w-full flex justify-center items-center">
       
         {showKycForm ? (
-          <Kycform />
+          <Kycform /> 
         ) : (
           <div>
           <div className=" text-center text-2xl text-[#00d8ff] mb-2">
@@ -24,7 +24,7 @@ const Add = () => {
             className="w-1/3"
             name="Add KYC Detail"
             type="button"
-            onClick={handleButtonClick}
+            onClick={handleButtonClick} 
           />
           </div>
         )}

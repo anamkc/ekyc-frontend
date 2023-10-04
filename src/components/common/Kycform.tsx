@@ -1,26 +1,25 @@
-import React from "react";
-import { useForm } from "react-hook-form";
-import { ZodType, z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import Image from "next/image";
+import React, { useState } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { addKyc } from "@/services/addkyc.service";
 import Button from "./Button";
-export type KycformProps = {
-  name: string;
-  type: "text" | "email" | "number" | "date" | "file";
-  placeholder: string;
-  label: string;
-};
 
-export type kycDetailProps = {
+// Define the type for your form data
+export type KycDetailProps = {
   firstname: string;
   lastname: string;
   email: string;
   phonenumber: number;
   dob: Date;
-  address1: string;
-  citizenshipImage: any;
-  profilepic: any;
+  address: string;
+  citizenshipImage: File | null | any;
+  profilepic: File | null | any;
+};
+
+type KycformProps = {
+  name: string;
+  type: string;
+  placeholder: string;
+  label: string;
 };
 
 const kycinputs: KycformProps[] = [
@@ -45,20 +44,20 @@ const kycinputs: KycformProps[] = [
   {
     name: "phonenumber",
     type: "number",
-    label: "Phonenumber",
-    placeholder: "phonenumber",
+    label: "Phone Number",
+    placeholder: "Phone Number",
   },
   {
     name: "dob",
     type: "date",
-    label: "Birth Date",
-    placeholder: "Dob",
+    label: "Date of Birth",
+    placeholder: "Date of Birth",
   },
   {
     name: "address",
     type: "text",
     label: "Address",
-    placeholder: "address",
+    placeholder: "Address",
   },
   {
     name: "citizenshipImage",
@@ -69,49 +68,65 @@ const kycinputs: KycformProps[] = [
   {
     name: "profilepic",
     type: "file",
-    label: "Profile pic",
-    placeholder: "Upload  photos",
+    label: "Profile Picture",
+    placeholder: "Upload your profile picture",
   },
 ];
+
+
 const Kycform = () => {
   const {
     register,
     handleSubmit,
-    control,
     formState: { errors },
-  } = useForm();
+  } = useForm<KycDetailProps>();
 
-  const onSubmit = (data: any) => {
+  // State to store the selected profile picture and citizenship image files
+  const [profilePicFile, setProfilePicFile] = useState<File | null>(null);
+  const [citizenshipImageFile, setCitizenshipImageFile] = useState<File | null>(null);
+
+  const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setProfilePicFile(file);
+  };
+
+  const handleCitizenshipImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setCitizenshipImageFile(file);
+  };
+
+  const onSubmit: SubmitHandler<KycDetailProps> = (data) => {
+    data.profilepic = profilePicFile;
+    data.citizenshipImage = citizenshipImageFile;
+
     addKyc(data)
-      .then((data: any) => {
-        console.log(data);
-        if (data.message === "success") {
-          console.log("Vayo");
+      .then((response) => {
+        console.log(response);
+        if (response.message === "success") {
+          console.log("Kyc submitted successfully");
         }
       })
-      .catch((err: any) => console.log(err));
+      .catch((error) => console.error(error));
   };
 
   return (
-    <div className="w-full md:mx-4 m-auto flex flex-col  items-center justify-center md:relative px-7  ">
-      <div className=" text-center text-2xl text-[#00d8ff] mb-3 mt-10 md:fixed top-[95px]">
-        Fill The Kyc Form
-      </div>
-      <div className="w-full flex items-center justify-center ">
-        <form
-          onSubmit={handleSubmit(onSubmit)}
-          className="w-full max-w-xl md:mr-8 mb-8 "
-        >
-          {kycinputs.map((inputs: KycformProps, index) => {
-            const { name, label, placeholder, type } = inputs;
-            return (
-              <div className="mb-4" key={index}>
-                <label
-                  htmlFor="name"
-                  className="block text-white font-bold mb-2"
-                >
-                  {label}
-                </label>
+    <div className="w-full md:mx-4 m-auto flex flex-col items-center justify-center md:relative px-7">
+      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl md:mr-8 mb-8">
+        {kycinputs.map((inputs: KycformProps, index) => {
+          const { name, label, placeholder, type } = inputs;
+          return (
+            <div className="mb-4" key={index}>
+              <label htmlFor={name} className="block text-white font-bold mb-2">
+                {label}
+              </label>
+              {type === "file" ? (
+                <input
+                  type="file"
+                  accept="image/*" // Specify accepted file types
+                  onChange={name === "profilepic" ? handleProfilePicChange : handleCitizenshipImageChange}
+                  className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+                />
+              ) : (
                 <input
                   {...register(name)}
                   type={type}
@@ -119,15 +134,14 @@ const Kycform = () => {
                   id={name}
                   className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
                 />
-              </div>
-            );
-          })}
-
-          <div className="flex items-center justify-center">
-            <Button name="Sign in" type="submit" onSubmit={onSubmit} />
-          </div>
-        </form>
-      </div>
+              )}
+            </div>
+          );
+        })}
+        <div className="flex items-center justify-center">
+          <Button name="Sign in" type="submit" />
+        </div>
+      </form>
     </div>
   );
 };

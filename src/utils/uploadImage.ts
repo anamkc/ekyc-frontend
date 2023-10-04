@@ -1,25 +1,32 @@
-import axios from 'axios';
+import { initializeApp } from "firebase/app";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
-export default async function uploadToCloudinary(image: File, upload_preset: string): Promise<string> {
-  const cloudinaryUploadUrl = 'https://api.cloudinary.com/v1_1/dr5if5lnh/image/upload'; // Replace with your Cloudinary upload URL
-  const cloudinaryApiKey = '476491869562222'; // Replace with your Cloudinary API key
+const firebaseConfig = {
+    apiKey: "AIzaSyC9XC6y_NMiW_v-sDD8EMZ_1BaU1W08T5g",
+    authDomain: "ekyc-store.firebaseapp.com",
+    projectId: "ekyc-store",
+    storageBucket: "ekyc-store.appspot.com",
+    messagingSenderId: "528462616410",
+    appId: "1:528462616410:web:54aa37351f30d333880563",
+    measurementId: "G-RRV79KL31X"
+};
 
-  const formData = new FormData();
-  formData.append('file', image);
-  formData.append('upload_preset', upload_preset); // Replace with your Cloudinary upload preset
+const firebaseApp = initializeApp(firebaseConfig);
 
+const storage = getStorage(firebaseApp);
+
+export const uploadFileToFirebase = async (file: File): Promise<string | null> => {
+    console.log(file.name);
   try {
-    const response = await axios.post(cloudinaryUploadUrl, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'X-Requested-With': 'XMLHttpRequest',
-        'Authorization': `Bearer ${cloudinaryApiKey}`
-      }
-    });
+    
+    const storageRef = ref(storage, "ekyc-pictures/" + file.name);
 
-    return response.data.secure_url; // Return the Cloudinary URL
+    await uploadBytes(storageRef, file);
+    const downloadUrl = await getDownloadURL(storageRef);
+
+    return downloadUrl;
   } catch (error) {
-    console.error('Error uploading image to Cloudinary:', error);
-    throw error;
+    console.error('Error uploading file to Firebase:', error);
+    return null;
   }
-}
+};

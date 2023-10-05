@@ -12,6 +12,8 @@ import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "../../../services/login.service";
 import { useRouter } from "next/navigation";
+import { signinAdmin } from '@/services/adminLogin.service';
+import router from 'next/router';
 
 export type InputGroupProps = {
     name: string;
@@ -39,7 +41,7 @@ export type InputGroupProps = {
   ];
 
 export const AdminSignin = () => {
-
+  const router = useRouter();
     const schema: ZodType = z.object({
         email: z.string().email(),
         password: z.string().min(8).max(30),
@@ -60,6 +62,20 @@ export const AdminSignin = () => {
       });
     const submitHandler =  ( data : any ) => {
     console.log(data)
+    signinAdmin(data)
+    .then((res:any)=>{
+      console.log(res);
+      const { token, message } = res;
+      if (token) {
+        localStorage.setItem("token", token);
+        console.log(token);
+        router.push("/admin/dashboard");
+      }
+    })
+    .catch((err: any) => console.log(err));
+    if (errors) {
+      console.log(errors);
+    }
     }
   return (
     <div>
@@ -99,12 +115,7 @@ export const AdminSignin = () => {
           />
           <Seperator />
           <div className="flex justify-center items-center mt-2 ">
-            <span className=" text-sm text-white">
-              Don&apos;t have an account?{" "}
-              <Link href="/register">
-                <span className="text-sm text-info">sign up</span>
-              </Link>
-            </span>
+            
           </div>
         </form>
       </div>

@@ -21,7 +21,7 @@ const Dashboard = () => {
   const [hasKyc, setHasKyc] = useState(false);
 
   return (
-    <div className="mt-[160px]">
+    <div className="mt-[160px] flex justify-center items-center ">
       {
         hasKyc ?(  <Add/>):(<Profile userDetails={userdata} />)
       }

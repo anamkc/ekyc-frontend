@@ -1,6 +1,6 @@
 "use client";
 import { NextPage } from "next";
-import React from "react";
+import React, { useEffect } from "react";
 import { AiTwotoneMail, AiTwotoneLock } from "react-icons/ai";
 import InputGroup from "@/components/common/InputGroup";
 import Button from "@/components/common/Button";
@@ -44,12 +44,20 @@ export type LoginProps = {
 };
 
 const Login: NextPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push('/dashboard');
+    }
+  }, []);
   const schema: ZodType = z.object({
     email: z.string().email(),
     password: z.string().min(8).max(30),
   });
 
-  const router = useRouter();
+  
 
   const {
     reset,

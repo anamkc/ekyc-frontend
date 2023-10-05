@@ -1,34 +1,30 @@
-"use client";
-import React from "react";
-import { Navbar } from "@/components/common/Navbar";
-import Table from "@/components/Table";
+'use client'
+import { getAllBlocks } from "@/services/getAllBlocks.service";
+import React, { useEffect, useState } from "react";
 
-export type UserDataProps = {
-    id: number;
-  name: string;
-  verificationstatus: boolean;
-};
+const Dashboard = () => {
+  const [blockData, setBlockData] = useState();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getAllBlocks();
+        console.log(data.allBlockData)
+        setBlockData(JSON.parse(data.allBlockData));
+      } catch (err) {
+        console.log("Error in Dashboard:", err);
+      }
+    };
+    fetchData();
+  }, []);
 
-export const userdata = [
-  {
-    id: 1,
-    name: "anam",
-    verificationstatus: true,
-  },
-  {
-    id: 2,
-    name: "pratik",
-    verificationstatus: false,
-  },
-];
-
-const dashboard = () => {
   return (
     <div>
       <div>
-        <div className="bg-black h-screen relative overflow-hidden">
+        <div className="bg-black text-white h-screen relative overflow-hidden">
           <div className=" mt-[160px]">
-            <Table userdata={userdata} />
+            {blockData && blockData.map(data => {
+              return data;
+            })}
           </div>
         </div>
       </div>
@@ -36,4 +32,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default Dashboard;

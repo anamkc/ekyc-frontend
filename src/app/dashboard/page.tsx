@@ -6,24 +6,19 @@ import authenticatedRoute from "../../hooks/authenticatedRoute";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
-const userdata = 
-  {
-    id: 1,
-    name: "anam",
-    verificationstatus: true,
-  }
+const userdata = {
+  id: 1,
+  name: "anam",
+  verificationstatus: true,
+};
 
 const Dashboard = () => {
-
-
   const router = useRouter();
 
-  const [hasKyc, setHasKyc] = useState(false);
+  const [hasKyc, setHasKyc] = useState(true);
 
   return (
-    <>
-    
-     <div className="mt-[160px] flex justify-center items-center ">
+    <div className="mt-[160px] flex justify-center items-center ">
       {
         hasKyc ?(  <Add/>):(<Profile userDetails={userdata} />)
       }

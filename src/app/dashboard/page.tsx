@@ -18,7 +18,7 @@ const Dashboard = () => {
 
   const router = useRouter();
 
-  const [hasKyc, setHasKyc] = useState(false);
+  const [hasKyc, setHasKyc] = useState(true);
 
   return (
     <div className="mt-[160px]">

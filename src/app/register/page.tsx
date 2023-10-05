@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Shapes from "@/components/common/Shapes";
 import type { InputGroupProps } from "../login/page";
 import { AiTwotoneLock, AiTwotoneMail } from "react-icons/ai";
@@ -11,14 +11,14 @@ import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signup } from "@/services/register.service";
-
+import { useRouter } from "next/navigation";
 
 export type RegisterProps = {
-  firstname: string,
-  lastname: string,
-  email:string,
-  password:string
-}
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+};
 const registerinputs: InputGroupProps[] = [
   {
     name: "firstname",
@@ -51,6 +51,7 @@ const registerinputs: InputGroupProps[] = [
 ];
 
 const Register = () => {
+  const router = useRouter();
   const schema: ZodType = z.object({
     firstname: z.string().min(1).max(30),
     lastname: z.string().min(1).max(30),
@@ -64,18 +65,24 @@ const Register = () => {
     setError,
     register,
     setValue,
-    formState: {
-      errors, isValid
-    },
+    formState: { errors, isValid },
     getValues,
     handleSubmit,
   } = useForm({
     resolver: zodResolver(schema),
   });
   const submitHandler = (data: any) => {
-    signup(data).then((res: any)=>console.log(res)).catch((err: any)=>console.log(err))
+    signup(data)
+      .then((res: any) => {
+        console.log(res);
+        if (res.message === "success") {
+          router.push("/login");
+        }
+      })
+
+      .catch((err: any) => console.log(err));
     if (errors) {
-      console.log(errors)
+      console.log(errors);
     }
   };
 
@@ -112,7 +119,7 @@ const Register = () => {
               />
               <label htmlFor="checkbox" className="ml-2 text-sm text-white ">
                 By Continuing you accept to agree to our
-                < span className=" cursor-pointer text-sm underline text-info mx-2">
+                <span className=" cursor-pointer text-sm underline text-info mx-2">
                   Terms and Conditions
                 </span>
                 and
@@ -121,7 +128,11 @@ const Register = () => {
                 </span>
               </label>
             </div>
-            <Button name="Register" type="submit" onSubmit={handleSubmit(submitHandler)} />
+            <Button
+              name="Register"
+              type="submit"
+              onSubmit={handleSubmit(submitHandler)}
+            />
             <Seperator />
             <div className="flex justify-center items-center mt-2 ">
               <span className=" text-sm text-white">

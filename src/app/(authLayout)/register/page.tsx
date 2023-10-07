@@ -1,6 +1,6 @@
 "use client";
 import Shapes from "@/components/common/Shapes";
-import type { InputGroupProps } from "../login/page";
+import type { InputGroupProps } from "../(authLayout)/login/page";
 import { AiTwotoneLock, AiTwotoneMail } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import InputGroup from "@/components/common/InputGroup";

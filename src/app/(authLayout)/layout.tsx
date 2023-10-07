@@ -1,5 +1,4 @@
-import { Navbar } from '@/components/common/Navbar'
-import './styles/globals.css'
+import '../styles/globals.css'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -9,7 +8,7 @@ export const metadata = {
   description: 'Decentralized KYC Verification System',
 }
 
-export default function RootLayout({
+export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode
@@ -17,8 +16,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-
-         <Navbar/>
         {children}
       </body>
     </html>

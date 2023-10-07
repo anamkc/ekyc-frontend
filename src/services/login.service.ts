@@ -1,5 +1,5 @@
 import { httpClient } from "@/config/httpClient";
-import type { LoginProps } from "@/app/login/page";
+import type { LoginProps } from "@/app/(authLayout)/login/page";
 
 export const login = async (props: LoginProps) => {
   console.log(props);

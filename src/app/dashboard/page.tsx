@@ -4,7 +4,7 @@ import { Navbar } from "../../components/common/Navbar";
 import Add from "../../components/dashboard/Add";
 import authenticatedRoute from "../../hooks/authenticatedRoute";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const userdata = {
   id: 1,
@@ -16,6 +16,10 @@ const Dashboard = () => {
   const router = useRouter();
 
   const [hasKyc, setHasKyc] = useState(true);
+
+  useEffect(()=> {
+    
+  })
 
   return (
     <>

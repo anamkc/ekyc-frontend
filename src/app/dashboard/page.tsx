@@ -21,6 +21,10 @@ const Dashboard = () => {
 
   const [hasKyc, setHasKyc] = useState(true);
 
+  useEffect(()=> {
+    
+  })
+
   return (
     <>
     <div className="mt-[160px] flex justify-center items-center ">

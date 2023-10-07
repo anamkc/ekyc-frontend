@@ -12,6 +12,7 @@ import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "@/services/login.service";
 import { useRouter } from "next/navigation";
+import {useGlobalContext} from '../Context/store'
 
 export type InputGroupProps = {
   name: string;
@@ -45,7 +46,7 @@ export type LoginProps = {
 
 const Login: NextPage = () => {
   const router = useRouter();
-
+ const{userhash , setUserhash} = useGlobalContext();
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -77,6 +78,7 @@ const Login: NextPage = () => {
     login(data)
       .then((res: any) => {
         console.log(res);
+        setUserhash(res.hash);
         const { token, message } = res;
         if (token) {
           localStorage.setItem("token", token);

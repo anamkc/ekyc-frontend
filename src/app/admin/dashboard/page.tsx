@@ -1,7 +1,9 @@
 "use client";
 import { getAllBlocks } from "@/services/getAllBlocks.service";
 import React, { useEffect, useState } from "react";
-
+type allBlockData {
+  
+}
 const Dashboard = () => {
   const [blockData, setBlockData] = useState<any>();
   
@@ -24,7 +26,7 @@ const Dashboard = () => {
         <div className="bg-black text-white h-screen relative overflow-hidden">
           <div className=" mt-[160px]">
             {blockData &&
-              blockData.map((data) => {
+              blockData.map((data:any) => {
                 return <div key={data.id}>{data.address}</div>;
               })}
           </div>

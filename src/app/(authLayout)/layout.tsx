@@ -1,5 +1,6 @@
 import '../styles/globals.css'
 import { Inter } from 'next/font/google'
+import { GlobalContextProvider } from '../Context/store'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,10 +15,11 @@ export default function AuthLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
+   
+        <GlobalContextProvider>
         {children}
-      </body>
-    </html>
+        </GlobalContextProvider>
+       
+    
   )
 }

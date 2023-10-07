@@ -1,9 +1,7 @@
 "use client";
 import { getAllBlocks } from "@/services/getAllBlocks.service";
 import React, { useEffect, useState } from "react";
-type allBlockData {
-  
-}
+
 const Dashboard = () => {
   const [blockData, setBlockData] = useState<any>();
   

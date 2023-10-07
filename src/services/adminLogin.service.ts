@@ -1,4 +1,4 @@
-import {LoginProps } from "../app/login/page";
+import {LoginProps } from "../app/(authLayout)/login/page";
 import { httpClientAdmin } from "@/config/httpClientAdmin";
 
 export const signinAdmin = async (props: LoginProps ) => {

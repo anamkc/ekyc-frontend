@@ -3,7 +3,7 @@ import { httpClientAdmin } from "@/config/httpClientAdmin";
 
 export const getAllBlocks = async () => {
   try {
-    const res = await httpClientAdmin.get("/getallblocks");
+    const res = await httpClientAdmin.get("/getAllBlocks");
     console.log("response from getall blocks" + res.data);
     return res.data;
     

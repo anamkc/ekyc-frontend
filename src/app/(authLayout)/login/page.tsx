@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import { AiTwotoneMail, AiTwotoneLock } from "react-icons/ai";
 import InputGroup from "@/components/common/InputGroup";
 import Button from "@/components/common/Button";
-import Seperator from "@/components/common/Seperator";
+import Separator from "@/components/common/Separator";
 import Link from "next/link";
 import Shapes from "@/components/common/Shapes";
 import { useForm } from "react-hook-form";
@@ -129,7 +129,7 @@ const Login: NextPage = () => {
               type="submit"
               onSubmit={handleSubmit(submitHandler)}
             />
-            <Seperator />
+            <Separator />
             <div className="flex justify-center items-center mt-2 ">
               <span className=" text-sm text-white">
                 Don&apos;t have an account?{" "}

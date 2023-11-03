@@ -51,7 +51,7 @@ const Profile = ({ userDetails }: { userDetails: Singleuser }) => {
                 Gender:Male
               </h1>
               <h1 className="text-[16px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
-                Address:chennai,tamilnadu
+                Address:chennai,Tamil Nadu
               </h1>
             </div>
             </div>

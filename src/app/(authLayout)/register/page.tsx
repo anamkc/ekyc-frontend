@@ -1,34 +1,34 @@
 "use client";
 import Shapes from "@/components/common/Shapes";
-import type { InputGroupProps } from "../(authLayout)/login/page";
+import type { InputGroupProps } from "../login/page";
 import { AiTwotoneLock, AiTwotoneMail } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
 import InputGroup from "@/components/common/InputGroup";
 import Button from "@/components/common/Button";
-import Seperator from "@/components/common/Seperator";
+import Separator from "@/components/common/Separator";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signup } from "@/services/register.service";
+import { signUp } from "@/services/register.service";
 import { useRouter } from "next/navigation";
 
 export type RegisterProps = {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
 };
-const registerinputs: InputGroupProps[] = [
+const registerInputs: InputGroupProps[] = [
   {
-    name: "firstname",
+    name: "firstName",
     type: "text",
     label: "First Name",
     placeholder: "First Name",
     icon: <FaUserCircle />,
   },
   {
-    name: "lastname",
+    name: "lastName",
     type: "text",
     label: "Last Name",
     placeholder: "Last Name",
@@ -53,8 +53,8 @@ const registerinputs: InputGroupProps[] = [
 const Register = () => {
   const router = useRouter();
   const schema: ZodType = z.object({
-    firstname: z.string().min(1).max(30),
-    lastname: z.string().min(1).max(30),
+    firstName: z.string().min(1).max(30),
+    lastName: z.string().min(1).max(30),
     email: z.string().email(),
     password: z.string().min(8).max(30),
   });
@@ -72,7 +72,7 @@ const Register = () => {
     resolver: zodResolver(schema),
   });
   const submitHandler = (data: any) => {
-    signup(data)
+    signUp(data)
       .then((res: any) => {
         console.log(res);
         if (res.message === "success") {
@@ -98,8 +98,8 @@ const Register = () => {
             <h1 className="  text-white font-normal font-itim text-center text-4xl tracking-normal leading-tight">
               Register
             </h1>
-            {registerinputs.map((inpfiels: InputGroupProps, index) => {
-              const { name, label, placeholder, type, icon } = inpfiels;
+            {registerInputs.map((inputFields: InputGroupProps, index) => {
+              const { name, label, placeholder, type, icon } = inputFields;
               return (
                 <InputGroup
                   key={index}
@@ -133,7 +133,7 @@ const Register = () => {
               type="submit"
               onSubmit={handleSubmit(submitHandler)}
             />
-            <Seperator />
+            <Separator />
             <div className="flex justify-center items-center mt-2 ">
               <span className=" text-sm text-white">
                 Already have an account?{" "}

@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { addKyc } from "@/services/addkyc.service";
+import { addKyc } from "@/services/addKyc.service";
 import Button from "./Button";
 
 // Define the type for your form data
 export type KycDetailProps = {
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  phonenumber: number;
+  phoneNumber: number;
   dob: Date;
   address: string;
   citizenshipImage: File | null | any;
-  profilepic: File | null | any;
+  profilePicture: File | null | any;
 };
 
-type KycformProps = {
-  name: string;
+type KycFormProps = {
+  name: "firstName" | "lastName" | "email" | "phoneNumber" | "dob" | "address" | "citizenshipImage" | "profilePicture";
   type: string;
   placeholder: string;
   label: string;
 };
 
-const kycinputs: KycformProps[] = [
+const kycInputs: KycFormProps[] = [
   {
-    name: "firstname",
+    name: "firstName",
     type: "text",
     label: "First Name",
     placeholder: "First Name",
   },
   {
-    name: "lastname",
+    name: "lastName",
     type: "text",
     label: "Last Name",
     placeholder: "Last Name",
@@ -42,7 +42,7 @@ const kycinputs: KycformProps[] = [
     placeholder: "Email",
   },
   {
-    name: "phonenumber",
+    name: "phoneNumber",
     type: "number",
     label: "Phone Number",
     placeholder: "Phone Number",
@@ -66,7 +66,7 @@ const kycinputs: KycformProps[] = [
     placeholder: "Upload your citizenship image",
   },
   {
-    name: "profilepic",
+    name: "profilePicture",
     type: "file",
     label: "Profile Picture",
     placeholder: "Upload your profile picture",
@@ -74,7 +74,7 @@ const kycinputs: KycformProps[] = [
 ];
 
 
-const Kycform = () => {
+const KycForm = () => {
   const {
     register,
     handleSubmit,
@@ -96,7 +96,7 @@ const Kycform = () => {
   };
 
   const onSubmit: SubmitHandler<KycDetailProps> = (data) => {
-    data.profilepic = profilePicFile;
+    data.profilePicture = profilePicFile;
     data.citizenshipImage = citizenshipImageFile;
 
     addKyc(data)
@@ -112,7 +112,7 @@ const Kycform = () => {
   return (
     <div className="w-full md:mx-4 m-auto flex flex-col items-center justify-center md:relative px-7">
       <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl md:mr-8 mb-8">
-        {kycinputs.map((inputs: KycformProps, index) => {
+        {kycInputs.map((inputs: KycFormProps, index) => {
           const { name, label, placeholder, type } = inputs;
           return (
             <div className="mb-4" key={index}>
@@ -123,7 +123,7 @@ const Kycform = () => {
                 <input
                   type="file"
                   accept="image/*" // Specify accepted file types
-                  onChange={name === "profilepic" ? handleProfilePicChange : handleCitizenshipImageChange}
+                  onChange={name === "profilePicture" ? handleProfilePicChange : handleCitizenshipImageChange}
                   className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
                 />
               ) : (
@@ -146,4 +146,4 @@ const Kycform = () => {
   );
 };
 
-export default Kycform;
+export default KycForm;

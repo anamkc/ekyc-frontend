@@ -1,4 +1,5 @@
 "use client";
+import adminAuthenticatedRoute from "@/hooks/adminAuthenticatedRoute";
 import { getAllBlocks } from "@/services/getAllBlocks.service";
 import React, { useEffect, useState } from "react";
 
@@ -34,4 +35,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default adminAuthenticatedRoute(Dashboard);

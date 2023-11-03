@@ -1,25 +1,25 @@
 import { httpClient } from "@/config/httpClient";
-import { KycDetailProps } from "@/components/common/Kycform";
+import { KycDetailProps } from "@/components/common/KycForm";
 import { uploadFileToFirebase } from "../utils/uploadImage"; // You'll need a separate function for Firebase upload
 
 export const addKyc = async (props: KycDetailProps) => {
   try {
     const {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
-      phonenumber,
+      phoneNumber,
       dob,
       address,
       citizenshipImage,
-      profilepic,
+      profilePicture,
     } = props;
 
     let profilePictureUrl: string | null = null;
     let citizenshipImageUrl: string | null = null;
 
-    if (profilepic) {
-      const uploadedProfilePicUrl = await uploadFileToFirebase(profilepic);
+    if (profilePicture) {
+      const uploadedProfilePicUrl = await uploadFileToFirebase(profilePicture);
       if (uploadedProfilePicUrl) {
         profilePictureUrl = uploadedProfilePicUrl;
       } else {
@@ -43,17 +43,17 @@ export const addKyc = async (props: KycDetailProps) => {
     }
 
     const kycData = {
-      firstname,
-      lastname,
+      firstName,
+      lastName,
       email,
-      phonenumber,
+      phoneNumber,
       dob,
       address,
       profilePictureUrl,
       citizenshipImageUrl,
     };
 
-    const response = await httpClient.post("/addkyc", kycData);
+    const response = await httpClient.post("/addKyc", kycData);
 
     return response.data;
   } catch (err) {

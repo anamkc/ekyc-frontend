@@ -1,8 +1,7 @@
-'use client' 
+"use client";
 import React, { useState } from "react";
 import Button from "../common/Button";
-import Link from "next/link";
-import Kycform from "../common/Kycform";
+import KycForm from "../common/KycForm";
 
 const Add = () => {
   const [showKycForm, setShowKycForm] = useState(false);
@@ -12,24 +11,21 @@ const Add = () => {
   };
   return (
     <div className="  w-full flex justify-center items-center">
-      
-        {showKycForm ? (
-          <Kycform /> 
-        ) : (
-          <div>
+      {showKycForm ? (
+        <KycForm />
+      ) : (
+        <div>
           <div className=" text-center text-2xl text-[#00d8ff] mb-2">
-          Please click  the button to proceed further 
-         </div>
+            Please click the button to proceed further
+          </div>
           <Button
             className="w-1/3"
             name="Add KYC Detail"
             type="button"
-            onClick={handleButtonClick} 
+            onClick={handleButtonClick}
           />
-          </div>
-        )}
-      
-     
+        </div>
+      )}
     </div>
   );
 };

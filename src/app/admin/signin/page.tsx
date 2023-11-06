@@ -4,7 +4,7 @@ import { NextPage } from "next";
 import { AiTwotoneMail, AiTwotoneLock } from "react-icons/ai";
 import InputGroup from "../../../components/common/InputGroup";
 import Button from "../../../components/common/Button";
-import Seperator from "../../../components/common/Seperator";
+import Separator from "../../../components/common/Separator";
 import Link from "next/link";
 import Shapes from "../../../components/common/Shapes";
 import { useForm } from "react-hook-form";
@@ -12,7 +12,7 @@ import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "../../../services/login.service";
 import { useRouter } from "next/navigation";
-import { signinAdmin } from "@/services/adminLogin.service";
+import { signInAdmin } from "@/services/adminLogin.service";
 import router from "next/router";
 import authenticatedRoute from "@/hooks/authenticatedRoute";
 
@@ -41,7 +41,7 @@ export const inputs: InputGroupProps[] = [
   },
 ];
 
-export const AdminSignin = () => {
+const AdminSignIn = () => {
   const router = useRouter();
   const schema: ZodType = z.object({
     email: z.string().email(),
@@ -62,13 +62,12 @@ export const AdminSignin = () => {
   });
   const submitHandler = (data: any) => {
     console.log(data);
-    signinAdmin(data)
+    signInAdmin(data)
       .then((res: any) => {
         console.log(res);
         const { token, message } = res;
         if (token) {
           localStorage.setItem("token", token);
-          console.log(token);
           router.push("/admin/dashboard");
         }
       })
@@ -113,7 +112,7 @@ export const AdminSignin = () => {
               type="submit"
               onSubmit={handleSubmit(submitHandler)}
             />
-            <Seperator />
+            <Separator />
             <div className="flex justify-center items-center mt-2 "></div>
           </form>
         </div>
@@ -122,4 +121,4 @@ export const AdminSignin = () => {
   );
 };
 
-export default AdminSignin;
+export default AdminSignIn;

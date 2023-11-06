@@ -17,12 +17,12 @@ const Shapes = () => {
         <div className="h-full w-full bg-info opacity-50"></div>
       </div>
       <div className="absolute hidden md:flex h-[325px] w-[325px] bottom-[-20%] left-[-10%]">
-      <div className="w-full h-full bg-info absolute bottom-[-20%] left-[-20%] "></div>
+        <div className="w-full h-full bg-info absolute bottom-[-20%] left-[-20%] "></div>
         <div className="h-full w-full bg-info opacity-50"></div>
       </div>
       <div className="absolute hidden md:flex h-[325px] w-[325px] bottom-[-20%] right-[-10%]">
-      <div className="w-full h-full bg-[#69B9EB] absolute bottom-[-5%] right-[-5%] rounded-full "></div>
-      <div
+        <div className="w-full h-full bg-[#69B9EB] absolute bottom-[-5%] right-[-5%] rounded-full "></div>
+        <div
           className="w-0 h-0 
           opacity-50
           rotate-45

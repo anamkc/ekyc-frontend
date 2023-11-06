@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Seperator = () => {
+const Separator = () => {
   return (
     <div className="flex justify-center items-center w-full mt-3 ">
     <div className="bg-white w-28 h-[2px] rounded-md"></div>
@@ -10,4 +10,4 @@ const Seperator = () => {
   )
 }
 
-export default Seperator
+export default Separator

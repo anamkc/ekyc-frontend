@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { httpClientAdmin } from "../config/httpClientAdmin";
 
-export default function authenticatedRoute(Component: any = null) {
+export default function adminAuthenticatedRoute(Component: any = null) {
   function Auth() {
     const [access, setAccess] = useState<any>({
       grantAccess: false,
@@ -23,7 +23,7 @@ export default function authenticatedRoute(Component: any = null) {
             token,
           });
         } else {
-          router.push("/admin/signin");
+          router.push("/admin/signIn");
         }
       } catch (err) {
         console.log(err);

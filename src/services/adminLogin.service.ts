@@ -1,9 +1,9 @@
 import {LoginProps } from "../app/(authLayout)/login/page";
 import { httpClientAdmin } from "@/config/httpClientAdmin";
 
-export const signinAdmin = async (props: LoginProps ) => {
+export const signInAdmin = async (props: LoginProps ) => {
 try{
-    const res = await httpClientAdmin.post("/signin" , props)
+    const res = await httpClientAdmin.post("/signIn" , props)
     return res.data
 } catch (err) {
     return console.log(err);

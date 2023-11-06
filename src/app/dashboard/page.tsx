@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { getKyc } from "@/services/getKyc.service";
 
-const userdata = {
+const userData = {
   id: 1,
   name: "anam",
   verificationstatus: true,
@@ -17,33 +17,20 @@ const Dashboard = () => {
   const [hasKyc, setHasKyc] = useState(true);
   const [data, setData] = useState();
 
-  useEffect(()=> {
+  useEffect(() => {
     const fetchData = async () => {
-      try {
-        const data = await getKyc();
-        console.log("data is ", data)
-        if(data === "404"){
-          setHasKyc(false);
-        } else {
-          setHasKyc(true);
-          setData(data)
-        }
-      } catch (err) {
-        console.log("Error in Dashboard:", err);
-      }
-    };
+      const data = await getKyc();
+      console.log(data)
+    }
     fetchData();
-  }, [hasKyc])
+  }, []);
 
   return (
     <>
-    <div className="mt-[160px] flex justify-center items-center ">
-      {
-        !hasKyc ?(  <Add/>):(<Profile userDetails={userdata} />)
-      }
-    </div>
+      <div className="mt-[160px] flex justify-center items-center ">
+        {hasKyc ? <Add /> : <Profile userDetails={userData} />}
+      </div>
     </>
-   
   );
 };
 

@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { userData } from "../page";
 import kycLanding from "/public/adminKycImg.png";
 import Image from "next/image";
 import Profile from "@/components/common/Profile";
@@ -8,9 +7,9 @@ import adminAuthenticatedRoute from "@/hooks/adminAuthenticatedRoute";
 
 const Users = ({ params }: { params: { userId: string } }) => {
   const [userId, setUserId] = useState(params.userId);
-  const [userDetails, setUserDetails] = useState(userData[Number(userId) - 1]);
-  console.log(userData);
-  console.log(userDetails);
+  // const [userDetails, setUserDetails] = useState(userData[Number(userId) - 1]);
+  // console.log(userData);
+  // console.log(userDetails);
   return (
     <div>
       <div>
@@ -25,7 +24,7 @@ const Users = ({ params }: { params: { userId: string } }) => {
               />
             </div>
             <div className="w-full flex justify-center items-center ">
-              <Profile userDetails={userDetails} />
+              {/* <Profile userDetails={userDetails} /> */}
             </div>
           </div>
         </div>

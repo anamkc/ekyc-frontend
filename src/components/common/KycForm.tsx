@@ -104,6 +104,7 @@ const KycForm = () => {
         console.log(response);
         if (response.message === "success") {
           console.log("Kyc submitted successfully");
+          
         }
       })
       .catch((error) => console.error(error));
@@ -139,7 +140,7 @@ const KycForm = () => {
           );
         })}
         <div className="flex items-center justify-center">
-          <Button name="Sign in" type="submit" />
+          <Button name="submit kyc" type="submit" />
         </div>
       </form>
     </div>

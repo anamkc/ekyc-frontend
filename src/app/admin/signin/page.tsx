@@ -14,6 +14,7 @@ import { login } from "../../../services/login.service";
 import { useRouter } from "next/navigation";
 import { signinAdmin } from "@/services/adminLogin.service";
 import router from "next/router";
+import authenticatedRoute from "@/hooks/authenticatedRoute";
 
 export type InputGroupProps = {
   name: string;

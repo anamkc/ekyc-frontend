@@ -13,21 +13,34 @@ const userdata = {
 };
 
 const Dashboard = () => {
-  const router = useRouter();
 
   const [hasKyc, setHasKyc] = useState(true);
+  const [data, setData] = useState();
 
   useEffect(()=> {
-    
-  })
+    const fetchData = async () => {
+      try {
+        const data = await getKyc();
+        console.log("data is ", data)
+        if(data === "404"){
+          setHasKyc(false);
+        } else {
+          setHasKyc(true);
+          setData(data)
+        }
+      } catch (err) {
+        console.log("Error in Dashboard:", err);
+      }
+    };
+    fetchData();
+  }, [hasKyc])
 
   return (
     <>
     <div className="mt-[160px] flex justify-center items-center ">
       {
-        hasKyc ?(  <Add/>):(<Profile userDetails={userdata} />)
+        !hasKyc ?(  <Add/>):(<Profile userDetails={userdata} />)
       }
-    
     </div>
     </>
    

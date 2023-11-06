@@ -1,7 +1,9 @@
+"use client";
 import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { addKyc } from "@/services/addkyc.service";
 import Button from "./Button";
+import { useRouter } from "next/navigation";
 
 // Define the type for your form data
 export type KycDetailProps = {
@@ -73,24 +75,28 @@ const kycinputs: KycformProps[] = [
   },
 ];
 
-
 const Kycform = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<KycDetailProps>();
-
+  
   // State to store the selected profile picture and citizenship image files
   const [profilePicFile, setProfilePicFile] = useState<File | null>(null);
-  const [citizenshipImageFile, setCitizenshipImageFile] = useState<File | null>(null);
+  const [citizenshipImageFile, setCitizenshipImageFile] = useState<File | null>(
+    null
+  );
 
   const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0] || null;
     setProfilePicFile(file);
   };
 
-  const handleCitizenshipImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCitizenshipImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = e.target.files?.[0] || null;
     setCitizenshipImageFile(file);
   };
@@ -106,12 +112,16 @@ const Kycform = () => {
           console.log("Kyc submitted successfully");
         }
       })
+      .then(() => router.push("/dashboard"))
       .catch((error) => console.error(error));
   };
 
   return (
     <div className="w-full md:mx-4 m-auto flex flex-col items-center justify-center md:relative px-7">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl md:mr-8 mb-8">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="w-full max-w-xl md:mr-8 mb-8"
+      >
         {kycinputs.map((inputs: KycformProps, index) => {
           const { name, label, placeholder, type } = inputs;
           return (
@@ -123,7 +133,11 @@ const Kycform = () => {
                 <input
                   type="file"
                   accept="image/*" // Specify accepted file types
-                  onChange={name === "profilepic" ? handleProfilePicChange : handleCitizenshipImageChange}
+                  onChange={
+                    name === "profilepic"
+                      ? handleProfilePicChange
+                      : handleCitizenshipImageChange
+                  }
                   className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
                 />
               ) : (
@@ -139,7 +153,7 @@ const Kycform = () => {
           );
         })}
         <div className="flex items-center justify-center">
-          <Button name="Sign in" type="submit" />
+          <Button name="submit kyc" type="submit" />
         </div>
       </form>
     </div>

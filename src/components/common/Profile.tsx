@@ -4,6 +4,7 @@ import Image from "next/image";
 import type { BlockData } from '@/app/admin/dashboard/page'
 
 const Profile = ({ userDetails }: { userDetails: BlockData }) => {
+  console.log(userDetails);
   const {} = userDetails;
   return (
     <div className="max-w-[1240px] w-full flex justify-center items-center ">

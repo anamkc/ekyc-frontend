@@ -1,5 +1,4 @@
 "use client";
-import adminAuthenticatedRoute from "@/hooks/adminAuthenticatedRoute";
 import { getAllBlocks } from "@/services/getAllBlocks.service";
 import React, { useEffect, useState } from "react";
 import adminAuthenticatedRoute from "@/hooks/adminAuthenticatedRoute";
@@ -44,7 +43,7 @@ const Dashboard = () => {
         {blockData &&
               blockData.slice(1).map((data: BlockData) => {
                 return (
-                 <UserBlocks data={data}/>
+                 <UserBlocks key={data.id} data={data}/>
                   
                 );
               })}

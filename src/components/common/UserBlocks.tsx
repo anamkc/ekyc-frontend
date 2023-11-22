@@ -49,7 +49,9 @@ const UserBlocks = ({ data }: { data: BlockData }) => {
           <Link
             href={{
               pathname: `/admin/dashboard/userId`,
-              query: data.id,
+              query: {
+                    userId : data.id,
+              },
             }}
           >
             <button

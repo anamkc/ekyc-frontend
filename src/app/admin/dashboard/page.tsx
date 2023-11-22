@@ -9,12 +9,12 @@ export type BlockData = {
   citizenshipImageUrl: string;
   dob: string;
   email: string;
-  firstname: string;
+  firstName: string;
   id: string;
-  lastname: string;
-  phonenumber: string;
+  lastName: string;
+  phoneNumber: string;
   profilePictureUrl: string;
-}
+};
 const Dashboard = () => {
   const [blockData, setBlockData] = useState<any>();
 
@@ -23,7 +23,7 @@ const Dashboard = () => {
       try {
         const data = await getAllBlocks();
         console.log(data.allBlockData);
-        
+
         setBlockData(data.allBlockData);
       } catch (err) {
         console.log("Error in Dashboard:", err);
@@ -38,19 +38,14 @@ const Dashboard = () => {
         <div className="bg-black text-white h-screen relative overflow-hidden">
           <h1>hello world</h1>
           <div className=" mt-[110px] w-full flex justify-center items-center   ">
-          <div className=" w-full max-w-[1240px] flex justify-center items-center ">
-        <div className="flex flex-col md:flex-row justify-center items-center w-full mt-3 mb-8    ">
-        {blockData &&
-              blockData.slice(1).map((data: BlockData) => {
-                return (
-                 <UserBlocks key={data.id} data={data}/>
-                  
-                );
-              })}
-        </div>
- 
-    </div>
-           
+            <div className=" w-full max-w-[1240px] flex justify-center items-center ">
+              <div className="flex flex-col md:flex-row justify-center items-center w-full mt-3 mb-8    ">
+                {blockData &&
+                  blockData.slice(1).map((data: BlockData) => {
+                    return <UserBlocks key={data.id} data={data} />;
+                  })}
+              </div>
+            </div>
           </div>
         </div>
       </div>

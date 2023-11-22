@@ -1,4 +1,4 @@
-import { RegisterProps } from "@/app/(authLayout)/register/page";
+import { RegisterProps } from "@/app/register/page";
 import { httpClient } from "@/config/httpClient";
 
 export const signUp = async (props: RegisterProps) => {

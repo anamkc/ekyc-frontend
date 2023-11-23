@@ -1,7 +1,7 @@
 "use client";
-import React from 'react';
-import Image from 'next/image';
-import Button from './Button';
+import React from "react";
+import Image from "next/image";
+import Button from "./Button";
 
 const Profile = ({ userDetails }: { userDetails: any }) => {
   const [user, setUser] = React.useState(userDetails.data);
@@ -15,21 +15,23 @@ const Profile = ({ userDetails }: { userDetails: any }) => {
     <div className="max-w-md mx-auto mt-8 p-8 bg-white dark:bg-gray-800 rounded-md shadow-md">
       <div className="flex items-center mb-10">
         <div className="mr-4">
-          <Image
-            src={user.profilePictureUrl}
-            alt={`${user.firstName} ${user.lastName}'s Profile Picture`}
-            width={120}
-            height={120}
-            className="rounded-full"
-          />
+          {user && (
+            <Image
+              src={user.profilePictureUrl}
+              alt={`${user.firstName} ${user.lastName}'s Profile Picture`}
+              width={120}
+              height={120}
+              className="rounded-full"
+            />
+          )}
         </div>
         <div>
           <p className="text-2xl font-semibold text-gray-800 dark:text-white">
-            {`${user.firstName} ${user.lastName}`}
+            {user && `${user.firstName} ${user.lastName}`}
           </p>
-          <p className="text-gray-600 dark:text-gray-300">{user.email}</p>
-          <p className="text-gray-600 dark:text-gray-300">{user.phoneNumber}</p>
-          <p className="text-gray-600 dark:text-gray-300">{user.address}</p>
+          <p className="text-gray-600 dark:text-gray-300">{user && user.email}</p>
+          <p className="text-gray-600 dark:text-gray-300">{user && user.phoneNumber}</p>
+          <p className="text-gray-600 dark:text-gray-300">{user && user.address}</p>
         </div>
       </div>
       <Button
@@ -39,13 +41,13 @@ const Profile = ({ userDetails }: { userDetails: any }) => {
       />
       {showCitizenshipImage && (
         <div className="mt-4">
-          <Image
+          {user && <Image
             src={user.citizenshipImageUrl}
             alt={`${user.firstName} ${user.lastName}'s Citizenship Image`}
             width={300}
             height={150}
             className="rounded-md"
-          />
+          /> }
         </div>
       )}
     </div>

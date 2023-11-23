@@ -18,7 +18,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       const res = await getKyc();
       console.log(res);
-      if(!res && !res.profilePictureUrl){
+      if(!res.profilePictureUrl){
         setHasKyc(false)
       } else {
         console.log(res);
@@ -33,7 +33,7 @@ const Dashboard = () => {
   return (
     <>
       <div className="mt-[160px] flex justify-center items-center ">
-        {/* {! hasKyc ? <Add /> :  data && <Profile userDetails={data!} />} */}
+        {/* {!hasKyc ? <Add /> :  data && <Profile userDetails={data!} />} */}
         {data ? <Profile userDetails={data} /> : <Add />}
       </div>
     </>

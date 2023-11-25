@@ -1,14 +1,28 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Button from "./Button";
+import verifyUser from "@/services/verifyUser.service";
+import { useRouter } from "next/navigation";
+import { MdVerified } from "react-icons/md";
+import { GoUnverified } from "react-icons/go";
 
 const IndividualProfile = ({ userDetails }: { userDetails: any }) => {
   console.log(userDetails);
   const [user, setUser] = React.useState(userDetails);
-  
+  const [verified, setVerified] = React.useState(user.verified);
+  const router = useRouter();
 
-  
+  const verifyuser = (id: string) => {
+    verifyUser(id)
+      .then((res: any) => {
+        return res.data && setUser(res.data)})
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    console.log("reload");
+  }, [user]);
 
   return (
     // <div>
@@ -39,7 +53,7 @@ const IndividualProfile = ({ userDetails }: { userDetails: any }) => {
     //       citizenship image
     //     </h5>
     //   </div>
-      
+
     //     <div className="mt-4">
     //       {user && <Image
     //         src={user.citizenshipImageUrl}
@@ -49,7 +63,7 @@ const IndividualProfile = ({ userDetails }: { userDetails: any }) => {
     //         className="rounded-md"
     //       /> }
     //     </div>
-     
+
     // </div>
     <div className="max-w-[1240px] w-full flex justify-center items-center ">
       <div className="flex justify-center items-center w-full mt-3 mb-8    ">
@@ -67,49 +81,67 @@ const IndividualProfile = ({ userDetails }: { userDetails: any }) => {
               </div>
             </div>
             <div className="flex flex-col mt-2 lg:flex-row lg:justify-between lg:w-full  ">
-              <h1 className="text-white mt-4 text-center lg:ml-6 ml-2 ">
-              {user.firstName} {user.lastName} 
+              <h1 className="text-white mt-4 text-start  lg:ml-6 ml-2 flex justify-center items-center ">
+                {user.firstName} {user.lastName}  { user.verified? <MdVerified className=" text-green-700 ml-5 " /> : <GoUnverified className=" ml-5 text-red-700" /> }
               </h1>
               <div className="flex justify-center lg:justify-end">
-                <button className="ml-4 cursor_pointer px-4 text-xl text-white lg:text-xl mb-3  bg-gradient-to-r from-[var(--primary-purple)] to-[var(--primary-blue)] py-2 mt-2   rounded-3xl ">
-                  verify user
-                </button>
+                {user.verified ? (
+                  <button
+                    disabled
+                    className="ml-4  cursor_pointer px-4 text-xl text-white lg:text-xl mb-3  bg-gradient-to-r from-[var(--primary-purple)] to-[var(--primary-blue)] py-2 mt-2   rounded-3xl "
+                  >
+                    user verified
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => verifyuser(user.id)}
+                    className="ml-4 cursor_pointer px-4 text-xl text-white lg:text-xl mb-3  bg-gradient-to-r from-[var(--primary-purple)] to-[var(--primary-blue)] py-2 mt-2   rounded-3xl "
+                  >
+                    verify user
+                  </button>
+                )}
+                {/* <button
+                    onClick={() => verifyuser(user.id)}
+                    className="ml-4 cursor_pointer px-4 text-xl text-white lg:text-xl mb-3  bg-gradient-to-r from-[var(--primary-purple)] to-[var(--primary-blue)] py-2 mt-2   rounded-3xl "
+                  >
+                    verify user
+                  </button> */}
               </div>
             </div>
           </div>
 
           <div className=" text-white flex flex-col lg:flex-row items-center justify-center lg:justify-start   ">
             <div className=" w-[700px] flex justify-center items-center ">
-            <div className="  lg:border-r-2 lg:border-white  lg:pr-[80px] ">
-              <h1 className="text-[16px] sm:text-xl leading-10 tracking-wider ">
-                Email: {user.email}
-              </h1>
-              <h1 className="text-[16px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
-                phone: {user.phoneNumber}
-              </h1>
-              <h1 className="text-[16px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
-                Date of Birth : {user.dob}
-              </h1>
-              <h1 className="text-[16px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
-                Gender:Male
-              </h1>
-              <h1 className="text-[16px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
-                Address: {user.address}
-              </h1>
+              <div className="  lg:border-r-2 text-left lg:border-white  lg:pr-[80px] ">
+                <h1 className="text-[23px] sm:text-xl leading-10 text-center tracking-wider lg:text-start ">
+                  Email: {user.email}
+                </h1>
+                <h1 className="text-[20px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
+                  phone: {user.phoneNumber}
+                </h1>
+                <h1 className="text-[20px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
+                  Date of Birth : {user.dob}
+                </h1>
+                <h1 className="text-[20px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
+                  Gender:Male
+                </h1>
+                <h1 className="text-[20px] sm:text-xl leading-10 tracking-wider text-center lg:text-start">
+                  Address: {user.address}
+                </h1>
+              </div>
             </div>
-            </div>
-           
+
             <div className="flex justify-center items-center w-full mt-5 lg:mt-0 ">
               <div className=" h-[170px] w-[290px] sm:w-[400px] border-2 border-t-white">
-              <div className="w-full h-full  overflow-hidden border-4 border-blue-500">
-            <Image
-              src={user.citizenshipImageUrl}
-              alt="Your Image Alt Text"
-              width={192}
-              height={192}
-              className="object-cover w-full h-full"
-            />
-          </div>
+                <div className="w-full h-full  overflow-hidden border-4 border-blue-500">
+                  <Image
+                    src={user.citizenshipImageUrl}
+                    alt="Your Image Alt Text"
+                    width={192}
+                    height={192}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -117,7 +149,6 @@ const IndividualProfile = ({ userDetails }: { userDetails: any }) => {
       </div>
     </div>
   );
- 
 };
 
 export default IndividualProfile;

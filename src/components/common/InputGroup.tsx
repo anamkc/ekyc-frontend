@@ -3,7 +3,7 @@ import React, { useState, forwardRef } from "react";
 
 type InputGroupProps = {
   label: string;
-  type: "text" | "email" | "password" | "number";
+  type: "text" | "email" | "password" | "number" | "file";
   placeholder: string;
   icon: React.ReactNode;
   name: string;

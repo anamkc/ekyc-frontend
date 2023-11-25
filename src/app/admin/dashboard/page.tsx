@@ -37,28 +37,36 @@ const Dashboard = () => {
   }, []);
 
 
-  const searchItem = blockData && blockData.length > 0
-  ? blockData.filter((data:any)=> {
+//   const searchItem = blockData && blockData.length > 0
+//   ? blockData.filter((data:any)=> {
    
-   return searchData.toLowerCase() === "" ? data : data && data.firstName && data.firstName.toLowerCase().includes(searchData)
+//    return searchData.toLowerCase() === "" ? blockData.slice(1) : data && data.firstName && data.firstName.toLowerCase().includes(searchData)
   
-  }) : [];
+//   }) : [];
 
-  console.log(" these are searched data " , searchItem);
+//   console.log(" these are searched data " , searchItem);
+   const searchItem =
+  blockData && blockData.length > 0
+    ? (searchData.toLowerCase() === ""
+        ? blockData.slice(1) 
+        : blockData.filter((data: any) => data && data.firstName && data.firstName.toLowerCase().includes(searchData.toLowerCase())))
+    : [];
+
+console.log("These are searched data: ", searchItem);
   
 
   return (
     <div>
       <div>
-        <div className="bg-black mt-[90px] text-white h-screen relative overflow-hidden">
+        <div className="bg-black mt-[90px] text-white min-h-screen relative overflow-hidden">
           <div className=" w-full  px-6 flex justify-end mt-6">
            <SearchBar setsearchData={setsearchData} />
           </div>
           <div className="  w-full flex justify-center items-center   ">
             <div className=" w-full max-w-[1240px] flex justify-center items-center ">
-              <div className="flex flex-col md:flex-row justify-center items-center w-full mt-3 mb-8    ">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-wrap md:flex-row justify-center  items-center w-full mt-3 mb-8    ">
                 {blockData &&
-                  blockData.slice(1).map((data: BlockData) => {
+                  searchItem.map((data: BlockData) => {
                     return <UserBlocks key={data.id} data={data} />;
                   })}
               </div>

@@ -10,7 +10,6 @@ import { BlockData } from "../admin/dashboard/page";
 
 
 const Dashboard = () => {
-
   const [hasKyc, setHasKyc] = useState(true);
   const [data, setData] = useState<BlockData | undefined>();
 
@@ -24,7 +23,6 @@ const Dashboard = () => {
         console.log(res);
         setHasKyc(true)
         setData(res);
-        
       }
     }
     fetchData();

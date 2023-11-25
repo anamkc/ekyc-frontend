@@ -4,6 +4,8 @@ import type { BlockData } from "@/app/admin/dashboard/page";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { MdVerified } from "react-icons/md";
+import { GoUnverified } from "react-icons/go";
 
 const UserBlocks = ({ data }: { data: BlockData }) => {
   const router = useRouter();
@@ -18,6 +20,7 @@ const UserBlocks = ({ data }: { data: BlockData }) => {
     lastName,
     phoneNumber,
     profilePictureUrl,
+    verified,
   } = data;
   const senddata = (data: BlockData) => {
     console.log(data);
@@ -36,11 +39,20 @@ const UserBlocks = ({ data }: { data: BlockData }) => {
               className="object-cover w-full h-full"
             />
           </div>
+          
         </div>
         <div className="text-center mb-4">
-          <h3 className="text-xl font-bold">
-            {firstName} {lastName}
+          <div className="flex justify-center gap-3">
+          <h3 className="text-xl font-bold flex">
+            {firstName} {lastName} 
           </h3>
+          <div className="flex justify-center items-center text-3xl">
+          { verified? <MdVerified className=" text-green-700 " /> : <GoUnverified className=" text-red-700" /> }
+          </div>
+             
+            
+          </div>
+          
           <p className="text-gray-400">{email}</p>
           <p className="text-gray-400">{phoneNumber}</p>
           <p className="text-gray-400">{address}</p>

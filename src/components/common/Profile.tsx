@@ -4,7 +4,8 @@ import Image from "next/image";
 import Button from "./Button";
 
 const Profile = ({ userDetails }: { userDetails: any }) => {
-  const [user, setUser] = React.useState(userDetails.data);
+  console.log(userDetails);
+  const [user, setUser] = React.useState(userDetails);
   const [showCitizenshipImage, setShowCitizenshipImage] = React.useState(false);
 
   const handleToggleImage = () => {
@@ -52,6 +53,7 @@ const Profile = ({ userDetails }: { userDetails: any }) => {
       )}
     </div>
   );
+ 
 };
 
 export default Profile;

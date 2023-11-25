@@ -3,6 +3,8 @@ import { getAllBlocks } from "@/services/getAllBlocks.service";
 import React, { useEffect, useState } from "react";
 import adminAuthenticatedRoute from "@/hooks/adminAuthenticatedRoute";
 import UserBlocks from "@/components/common/UserBlocks";
+import SearchBar from "@/components/common/SearchBar";
+import { data } from "autoprefixer";
 
 export type BlockData = {
   address: string;
@@ -14,10 +16,12 @@ export type BlockData = {
   lastName: string;
   phoneNumber: string;
   profilePictureUrl: string;
+  verified:boolean;
 };
 const Dashboard = () => {
-  const [blockData, setBlockData] = useState<any>();
-
+  const [blockData, setBlockData] = useState<any>([]);
+  const [searchData , setsearchData] = useState<string>("")
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -32,12 +36,25 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+
+  const searchItem = blockData && blockData.length > 0
+  ? blockData.filter((data:any)=> {
+   
+   return searchData.toLowerCase() === "" ? data : data && data.firstName && data.firstName.toLowerCase().includes(searchData)
+  
+  }) : [];
+
+  console.log(" these are searched data " , searchItem);
+  
+
   return (
     <div>
       <div>
-        <div className="bg-black text-white h-screen relative overflow-hidden">
-          <h1>hello world</h1>
-          <div className=" mt-[110px] w-full flex justify-center items-center   ">
+        <div className="bg-black mt-[90px] text-white h-screen relative overflow-hidden">
+          <div className=" w-full  px-6 flex justify-end mt-6">
+           <SearchBar setsearchData={setsearchData} />
+          </div>
+          <div className="  w-full flex justify-center items-center   ">
             <div className=" w-full max-w-[1240px] flex justify-center items-center ">
               <div className="flex flex-col md:flex-row justify-center items-center w-full mt-3 mb-8    ">
                 {blockData &&

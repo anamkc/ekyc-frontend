@@ -2,18 +2,14 @@
 import Shapes from "@/components/common/Shapes";
 import { AiTwotoneLock, AiTwotoneMail } from "react-icons/ai";
 import { FaUserCircle } from "react-icons/fa";
-import InputGroup from "@/components/common/InputGroup";
 import Button from "@/components/common/Button";
 import Separator from "@/components/common/Separator";
-import Link from "next/link";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUp } from "@/services/financeRegister";
+import { signUp } from "@/services/financeRegister.service";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { log } from "console";
-
 
 export type FiRegisterProps = {
   name: string;
@@ -22,7 +18,6 @@ export type FiRegisterProps = {
   registrationNumber: string;
   profilePicture: File | null | any;
 };
-
 
 type financeProps = {
   name: "name" | "email" | "password" | "registrationNumber" | "profilePicture";
@@ -71,7 +66,6 @@ const registerInputs: financeProps[] = [
 ];
 
 const Register = () => {
-
   const router = useRouter();
   const [profilePicFile, setProfilePicFile] = useState<File | null>(null);
   const schema: ZodType = z.object({
@@ -99,12 +93,12 @@ const Register = () => {
   };
 
   const onSubmit: SubmitHandler<any> = (data) => {
-    data.profilePicture = profilePicFile
+    data.profilePicture = profilePicFile;
     signUp(data)
       .then((res: any) => {
         console.log(res);
         if (res.message === "success") {
-          router.push('/finance/login')
+          router.push("/finance/login");
         }
       })
 
@@ -119,12 +113,18 @@ const Register = () => {
       <div className="bg-black h-screen relative overflow-hidden ">
         <Shapes />
         <div className="w-full md:mx-4 m-auto flex flex-col items-center justify-center md:relative px-7 mt-28">
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl md:mr-8 mb-8">
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="w-full max-w-xl md:mr-8 mb-8"
+          >
             {registerInputs.map((inputs: financeProps, index) => {
               const { name, label, placeholder, type } = inputs;
               return (
                 <div className="mb-4" key={index}>
-                  <label htmlFor={name} className="block text-white font-bold mb-2">
+                  <label
+                    htmlFor={name}
+                    className="block text-white font-bold mb-2"
+                  >
                     {label}
                   </label>
                   {type === "file" ? (

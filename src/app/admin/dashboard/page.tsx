@@ -16,12 +16,12 @@ export type BlockData = {
   lastName: string;
   phoneNumber: string;
   profilePictureUrl: string;
-  verified:boolean;
+  verified: boolean;
 };
 const Dashboard = () => {
   const [blockData, setBlockData] = useState<any>([]);
-  const [searchData , setsearchData] = useState<string>("")
-  
+  const [searchData, setsearchData] = useState<string>("");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -36,31 +36,34 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
+  //   const searchItem = blockData && blockData.length > 0
+  //   ? blockData.filter((data:any)=> {
 
-//   const searchItem = blockData && blockData.length > 0
-//   ? blockData.filter((data:any)=> {
-   
-//    return searchData.toLowerCase() === "" ? blockData.slice(1) : data && data.firstName && data.firstName.toLowerCase().includes(searchData)
-  
-//   }) : [];
+  //    return searchData.toLowerCase() === "" ? blockData.slice(1) : data && data.firstName && data.firstName.toLowerCase().includes(searchData)
 
-//   console.log(" these are searched data " , searchItem);
-   const searchItem =
-  blockData && blockData.length > 0
-    ? (searchData.toLowerCase() === ""
-        ? blockData.slice(1) 
-        : blockData.filter((data: any) => data && data.firstName && data.firstName.toLowerCase().includes(searchData.toLowerCase())))
-    : [];
+  //   }) : [];
 
-console.log("These are searched data: ", searchItem);
-  
+  //   console.log(" these are searched data " , searchItem);
+  const searchItem =
+    blockData && blockData.length > 0
+      ? searchData.toLowerCase() === ""
+        ? blockData.slice(1)
+        : blockData.filter(
+            (data: any) =>
+              data &&
+              data.firstName &&
+              data.firstName.toLowerCase().includes(searchData.toLowerCase())
+          )
+      : [];
+
+  console.log("These are searched data: ", searchItem);
 
   return (
     <div>
       <div>
         <div className="bg-black mt-[90px] text-white min-h-screen relative overflow-hidden">
           <div className=" w-full  px-6 flex justify-end mt-6">
-           <SearchBar setsearchData={setsearchData} />
+            <SearchBar setsearchData={setsearchData} />
           </div>
           <div className="  w-full flex justify-center items-center   ">
             <div className=" w-full max-w-[1240px] flex justify-center items-center ">

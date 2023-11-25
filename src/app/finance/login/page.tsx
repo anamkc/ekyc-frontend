@@ -48,7 +48,6 @@ const Login: NextPage = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-    // router.push('/dashboard');
     console.log(token)
     }
   }, []);
@@ -81,7 +80,6 @@ const Login: NextPage = () => {
         if (token) {
           localStorage.setItem("token", token);
           console.log(token);
-        //   router.push("/dashboard");
         }
 
       })

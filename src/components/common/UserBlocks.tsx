@@ -28,7 +28,7 @@ const UserBlocks = ({ data }: { data: BlockData }) => {
 
   return (
     <>
-      <div className="bg-gray-800 p-4 rounded-lg text-white shadow-lg w-[80%]  md:w-[30%]  mx-2 my-4">
+      <div className="bg-gray-800 p-4 rounded-lg text-white shadow-lg w-[80%]  md:max-w-[40%] lg:w-[30%]  mx-2 my-4">
         <div className="flex justify-center mb-4">
           <div className="w-20 h-20 rounded-full overflow-hidden border-4 border-blue-500">
             <Image

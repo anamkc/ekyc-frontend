@@ -64,7 +64,7 @@ console.log("These are searched data: ", searchItem);
           </div>
           <div className="  w-full flex justify-center items-center   ">
             <div className=" w-full max-w-[1240px] flex justify-center items-center ">
-              <div className="flex flex-col sm:flex-row sm:flex-wrap lg:flex-wrap md:flex-row justify-center  items-center w-full mt-3 mb-8    ">
+              <div className="flex flex-col sm:flex-row flex-wrap md:flex-row justify-center  items-center w-full mt-3 mb-8    ">
                 {blockData &&
                   searchItem.map((data: BlockData) => {
                     return <UserBlocks key={data.id} data={data} />;

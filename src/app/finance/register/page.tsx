@@ -6,21 +6,26 @@ import InputGroup from "@/components/common/InputGroup";
 import Button from "@/components/common/Button";
 import Separator from "@/components/common/Separator";
 import Link from "next/link";
-import { useForm } from "react-hook-form";
+import { useForm, SubmitHandler } from "react-hook-form";
 import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signUp } from "@/services/register.service";
+import { signUp } from "@/services/financeRegister";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { log } from "console";
 
-export type RegisterProps = {
-  Name: string;
+
+export type FiRegisterProps = {
+  name: string;
   email: string;
   password: string;
+  registrationNumber: string;
+  profilePicture: File | null | any;
 };
 
+
 type financeProps = {
-  name: "name" | "email" |"password"| "Registration number" | "profilePicture";
+  name: "name" | "email" | "password" | "registrationNumber" | "profilePicture";
   type: "number" | "email" | "text" | "password" | "file";
   placeholder: string;
   label: string;
@@ -50,9 +55,9 @@ const registerInputs: financeProps[] = [
     icon: <AiTwotoneLock />,
   },
   {
-    name: "Registration number",
+    name: "registrationNumber",
     type: "text",
-    label: "registration number",
+    label: "Registration Number",
     placeholder: "registration number",
     icon: <FaUserCircle />,
   },
@@ -93,12 +98,13 @@ const Register = () => {
     setProfilePicFile(file);
   };
 
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<any> = (data) => {
+    data.profilePicture = profilePicFile
     signUp(data)
       .then((res: any) => {
         console.log(res);
         if (res.message === "success") {
-          router.push("/login");
+          router.push('/finance/login')
         }
       })
 
@@ -113,38 +119,38 @@ const Register = () => {
       <div className="bg-black h-screen relative overflow-hidden ">
         <Shapes />
         <div className="w-full md:mx-4 m-auto flex flex-col items-center justify-center md:relative px-7 mt-28">
-      <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl md:mr-8 mb-8">
-        {registerInputs.map((inputs:financeProps , index) => {
-          const { name, label, placeholder, type } = inputs;
-          return (
-            <div className="mb-4" key={index}>
-              <label htmlFor={name} className="block text-white font-bold mb-2">
-                {label}
-              </label>
-              {type === "file" ? (
-                <input
-                  type="file"
-                  accept="image/*" // Specify accepted file types
-                  onChange={handleProfilePicChange}
-                  className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-                />
-              ) : (
-                <input
-                  {...register(name)}
-                  type={type}
-                  placeholder={placeholder}
-                  id={name}
-                  className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
-                />
-              )}
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-xl md:mr-8 mb-8">
+            {registerInputs.map((inputs: financeProps, index) => {
+              const { name, label, placeholder, type } = inputs;
+              return (
+                <div className="mb-4" key={index}>
+                  <label htmlFor={name} className="block text-white font-bold mb-2">
+                    {label}
+                  </label>
+                  {type === "file" ? (
+                    <input
+                      type="file"
+                      accept="image/*" // Specify accepted file types
+                      onChange={handleProfilePicChange}
+                      className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+                    />
+                  ) : (
+                    <input
+                      {...register(name)}
+                      type={type}
+                      placeholder={placeholder}
+                      id={name}
+                      className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
+                    />
+                  )}
+                </div>
+              );
+            })}
+            <div className="flex items-center justify-center">
+              <Button name="Register" type="submit" />
             </div>
-          );
-        })}
-        <div className="flex items-center justify-center">
-          <Button name="submit kyc" type="submit" />
+          </form>
         </div>
-      </form>
-    </div>
       </div>
     </div>
   );

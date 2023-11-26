@@ -6,8 +6,8 @@ import Link from "next/link";
 import { MdVerified } from "react-icons/md";
 import { GoUnverified } from "react-icons/go";
 
-const UserBlocks = ({ data }: { data: BlockData }) => {
-  console.log(data);
+const FiUserBlock = (data: any) => {
+    console.log()
   const {
     address,
     citizenshipImageUrl,
@@ -19,7 +19,8 @@ const UserBlocks = ({ data }: { data: BlockData }) => {
     phoneNumber,
     profilePictureUrl,
     verified,
-  } = data;
+  } = data.data.data.data;
+  
   const senddata = (data: BlockData) => {
     console.log(data);
   };
@@ -56,7 +57,14 @@ const UserBlocks = ({ data }: { data: BlockData }) => {
           <p className="text-gray-400">{address}</p>
         </div>
         <div className="flex justify-center">
-          <Link
+        <Image
+            src={citizenshipImageUrl}
+            alt={`${firstName} ${lastName}'s Citizenship Image`}
+            width={300}
+            height={150}
+            className="rounded-md"
+          />
+          {/* <Link
             href={{
               pathname: `/admin/dashboard/userId`,
               query: {
@@ -72,11 +80,11 @@ const UserBlocks = ({ data }: { data: BlockData }) => {
             >
               View Details
             </button>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </>
   );
 };
 
-export default UserBlocks;
+export default FiUserBlock;

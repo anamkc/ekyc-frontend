@@ -8,6 +8,8 @@ import InputGroup from "@/components/common/InputGroup";
 import SearchBar from "@/components/common/SearchBar";
 import Button from "@/components/common/Button";
 import { getKycFi } from "@/services/getKycFi.service";
+import FiUserBlock from "@/components/common/FiUserBlock";
+import { Navbar } from "@/components/common/Navbar";
 
 const Dashboard = () => {
   const [blockData, setBlockData] = useState<any>([]);
@@ -18,7 +20,6 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const data = await getFIBlocks();
-        console.log(data.blockchain);
         setBlockData(data.blockchain);
       } catch (err) {
         console.log("Error in Dashboard:", err);
@@ -34,12 +35,13 @@ const Dashboard = () => {
   const handleKYCAdd = async () => {
     getKycFi(searchData)
       .then((res) => {
-        console.log(res);
         setBlockData(res.data);
       })
       .catch((err) => console.log(err));
   };
   return (
+    <>
+    <Navbar />
     <div className="mt-32 ">
       <div className="  w-full flex justify-center items-center   ">
         <div className=" w-full max-w-[1240px] flex justify-center items-center ">
@@ -71,9 +73,8 @@ const Dashboard = () => {
             <div className="flex w-full justify-center items-center">
               {blockData &&
                 blockData.map((block: any, index: number) => {
-                  console.log(block.data.data);
                   if (index !== 0) {
-                    return <UserBlocks key={index} data={block.data.data} />;
+                    return block && <FiUserBlock key={index} data={block} />;
                   }
                 })}
             </div>
@@ -81,6 +82,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

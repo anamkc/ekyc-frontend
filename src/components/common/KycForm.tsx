@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { addKyc } from "@/services/addKyc.service";
 import Button from "./Button";
+import { useRouter } from "next/navigation";
 
 // Define the type for your form data
 export type KycDetailProps = {
@@ -75,6 +76,7 @@ const kycInputs: KycFormProps[] = [
 
 
 const KycForm = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -102,9 +104,9 @@ const KycForm = () => {
     addKyc(data)
       .then((response) => {
         console.log(response);
-        if (response.message === "success") {
+        if (response.success === true) {
           console.log("Kyc submitted successfully");
-          
+          router.push("/login");
         }
       })
       .catch((error) => console.error(error));

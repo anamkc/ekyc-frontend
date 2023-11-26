@@ -5,6 +5,7 @@ import adminAuthenticatedRoute from "@/hooks/adminAuthenticatedRoute";
 import UserBlocks from "@/components/common/UserBlocks";
 import SearchBar from "@/components/common/SearchBar";
 import { data } from "autoprefixer";
+import { Navbar } from "@/components/common/Navbar";
 
 export type BlockData = {
   address: string;
@@ -59,6 +60,8 @@ const Dashboard = () => {
   console.log("These are searched data: ", searchItem);
 
   return (
+    <>
+    <Navbar />
     <div>
       <div>
         <div className="bg-black mt-[90px] text-white min-h-screen relative overflow-hidden">
@@ -78,6 +81,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

@@ -23,7 +23,7 @@ export default function adminAuthenticatedRoute(Component: any = null) {
             token,
           });
         } else {
-          router.push("/admin/signIn");
+          router.push("/admin/login");
         }
       } catch (err) {
         console.log(err);

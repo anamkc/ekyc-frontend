@@ -8,6 +8,7 @@ import singleUser from "@/services/singleUser.service"
 import { BlockData } from "../page";
 import Profile from "@/components/common/Profile";
 import IndividualProfile from "@/components/common/IndividualProfile";
+import { Navbar } from "@/components/common/Navbar";
 
 const Users = () => {
   const router = useRouter();
@@ -30,10 +31,11 @@ const Users = () => {
 
 
   return (
+    <>
+    <Navbar />
     <div className="mt-[110px]">
       <div className=" relative overflow-hidden">
         <div>
-        
           <div className="w-full flex justify-center items-center">
             {/* Assuming Profile component needs userDetails as a prop */}
             {/* <Profile userDetails={userDetails} /> */}
@@ -42,6 +44,7 @@ const Users = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

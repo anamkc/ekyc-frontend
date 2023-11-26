@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NextPage } from "next";
 import { AiTwotoneMail, AiTwotoneLock } from "react-icons/ai";
 import InputGroup from "../../../components/common/InputGroup";
@@ -42,6 +42,7 @@ export const inputs: InputGroupProps[] = [
 ];
 
 const AdminSignIn = () => {
+  const [token , seToken] = useState("")
   const router = useRouter();
   const schema: ZodType = z.object({
     email: z.string().email(),
@@ -60,6 +61,12 @@ const AdminSignIn = () => {
   } = useForm({
     resolver: zodResolver(schema),
   });
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+    router.push('/admin/dashboard');
+    }
+  }, []);
   const submitHandler = (data: any) => {
     console.log(data);
     signInAdmin(data)
@@ -68,6 +75,7 @@ const AdminSignIn = () => {
         const { token, message } = res;
         if (token) {
           localStorage.setItem("token", token);
+          seToken(token);
           router.push("/admin/dashboard");
         }
       })

@@ -12,6 +12,7 @@ import { ZodType, z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { login } from "@/services/login.service";
 import { useRouter } from "next/navigation";
+import { Navbar } from "@/components/common/Navbar";
 
 export type InputGroupProps = {
   name: string;
@@ -48,7 +49,7 @@ const Login: NextPage = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-    router.push('/dashboard');
+      router.push('/dashboard');
     }
   }, []);
   const schema: ZodType = z.object({
@@ -56,8 +57,8 @@ const Login: NextPage = () => {
     password: z.string().min(8).max(30),
   });
 
-  
-  
+
+
   const {
     reset,
     control,
@@ -75,11 +76,12 @@ const Login: NextPage = () => {
     login(data)
       .then((res: any) => {
         console.log(res);
-      
+
         const { token, message, hash } = res;
         if (token) {
           localStorage.setItem("token", token);
           console.log(token);
+
           router.push("/dashboard");
         }
 
@@ -91,54 +93,55 @@ const Login: NextPage = () => {
   };
 
   return (
-    <div>
-      <div className="bg-black h-screen relative overflow-hidden">
-        <Shapes />
-        <div className="flex justify-center items-center flex-col h-full px-4 ">
-          <form
-            onSubmit={handleSubmit(submitHandler)}
-            className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4"
-          >
-            <h1 className="  text-white font-normal font-itim text-center text-4xl tracking-normal leading-tight">
-              Login
-            </h1>
-            {inputs.map((inp, index) => {
-              const { name, label, type, placeholder, icon } = inp;
-              return (
-                <InputGroup
-                  key={index}
-                  label={label}
-                  placeholder={placeholder}
-                  type={type}
-                  icon={icon}
-                  {...register(name)}
-                />
-              );
-            })}
-
-            <span className=" cursor-pointer text-sm text-right text-info block my-2">
-              {" "}
-              Forgot password ?
-            </span>
-
-            <Button
-              name="Sign in"
-              type="submit"
+      <div>
+        <div className="bg-black h-screen relative overflow-hidden">
+          <Shapes />
+          <div className="flex justify-center items-center flex-col h-full px-4 ">
+            <form
               onSubmit={handleSubmit(submitHandler)}
-            />
-            <Separator />
-            <div className="flex justify-center items-center mt-2 ">
-              <span className=" text-sm text-white">
-                Don&apos;t have an account?{" "}
-                <Link href="/register">
-                  <span className="text-sm text-info">sign up</span>
-                </Link>
+              className="w-full sm:w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/4"
+            >
+              <h1 className="  text-white font-normal font-itim text-center text-4xl tracking-normal leading-tight">
+                Login
+              </h1>
+              {inputs.map((inp, index) => {
+                const { name, label, type, placeholder, icon } = inp;
+                return (
+                  <InputGroup
+                    key={index}
+                    label={label}
+                    placeholder={placeholder}
+                    type={type}
+                    icon={icon}
+                    {...register(name)}
+                  />
+                );
+              })}
+
+              <span className=" cursor-pointer text-sm text-right text-info block my-2">
+                {" "}
+                Forgot password ?
               </span>
-            </div>
-          </form>
+
+              <Button
+                name="Sign in"
+                type="submit"
+                onSubmit={handleSubmit(submitHandler)}
+              />
+              <Separator />
+              <div className="flex justify-center items-center mt-2 ">
+                <span className=" text-sm text-white">
+                  Don&apos;t have an account?{" "}
+                  <Link href="/register">
+                    <span className="text-sm text-info">sign up</span>
+                  </Link>
+                </span>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+    
   );
 };
 

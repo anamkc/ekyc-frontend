@@ -125,7 +125,7 @@ const KycForm = () => {
               {type === "file" ? (
                 <input
                   type="file"
-                  accept="image/*" // Specify accepted file types
+                  accept="image/*" 
                   onChange={name === "profilePicture" ? handleProfilePicChange : handleCitizenshipImageChange}
                   className="appearance-none border rounded w-full py-2 px-3 text-white leading-tight bg-transparent focus:outline-none focus:shadow-outline"
                 />
